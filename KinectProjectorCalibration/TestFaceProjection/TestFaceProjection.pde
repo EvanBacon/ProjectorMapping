@@ -7,7 +7,8 @@ ArrayList<User> users;
 
 void setup()
 {
-  size(displayWidth, displayHeight, P2D); 
+  //size(displayWidth, displayHeight, P2D);
+  fullScreen(2);
   rectMode(CENTER);
   
   // set up kinect

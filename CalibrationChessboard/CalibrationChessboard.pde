@@ -14,7 +14,7 @@ String calibFilename = "calib1.txt";
 SimpleOpenNI kinect;
 OpenCV opencv;
 //ChessboardFrame frameBoard;
-ChessboardApplet ca = new ChessboardApplet();
+ChessboardApplet ca;
 PVector[] depthMap;
 ArrayList<PVector> projPoints = new ArrayList<PVector>();
 
@@ -31,9 +31,11 @@ void setup()
 {        
   size(1150, 620);
   surface.setResizable(true);
+  surface.setSize(1150, 620);
 
   textFont(createFont("Courier", 24));
  
+  ca = new ChessboardApplet();
   // set up kinect
   kinect = new SimpleOpenNI(this);
   kinect.setMirror(false);
@@ -56,6 +58,7 @@ void setup()
 
 void draw() 
 {
+
   // draw Chessboard onto scene
   projPoints = ca.drawChessboard(cx, cy, cwidth);
 

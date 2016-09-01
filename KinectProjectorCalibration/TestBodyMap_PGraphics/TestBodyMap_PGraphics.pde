@@ -13,7 +13,11 @@ PGraphics pgGfx, pgMask, pgFinal;
 
 void setup() 
 {
-  size(displayWidth, displayHeight, P2D);
+  int w = 1600;
+int h = 900;
+
+  //fullScreen(2);
+  size(1600, 900, P2D);
   opencv = new OpenCV(this, 640, 480);
   projectorMatrix = loadCalibration("calib1.txt");
 
@@ -23,11 +27,12 @@ void setup()
   kinect.enableDepth(); 
   kinect.alternativeViewPointDepthToImage();
 
+
   // initialize pgraphics objects
   pgKinect = createGraphics(kinect.depthWidth(), kinect.depthHeight());
-  pgGfx = createGraphics(width, height, P2D);
-  pgMask = createGraphics(width, height);
-  pgFinal = createGraphics(width, height, P2D);
+  pgGfx = createGraphics(w, h, P2D);
+  pgMask = createGraphics(w, h);
+  pgFinal = createGraphics(w, h, P2D);
 
   // initialize graphics
   pgGfx.beginDraw();
@@ -107,4 +112,3 @@ float[] loadCalibration(String filename) {
     projectorMatrix[i] = Float.parseFloat(s[i]);
   return projectorMatrix;
 }
-

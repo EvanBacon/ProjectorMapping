@@ -1,0 +1,619 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */; };
+		6CE573551D761A630093D60F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573541D761A630093D60F /* AppDelegate.swift */; };
+		6CE573571D761A630093D60F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573561D761A630093D60F /* GameView.swift */; };
+		6CE573591D761A630093D60F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573581D761A630093D60F /* GameViewController.swift */; };
+		6CE5735B1D761A630093D60F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE5735A1D761A630093D60F /* art.scnassets */; };
+		6CE5735D1D761A630093D60F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE5735C1D761A630093D60F /* Assets.xcassets */; };
+		6CE573601D761A630093D60F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE5735E1D761A630093D60F /* MainMenu.xib */; };
+		6CE5736B1D761A630093D60F /* ProjectorPrototypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE5736A1D761A630093D60F /* ProjectorPrototypeTests.swift */; };
+		6CE573761D761A630093D60F /* ProjectorPrototypeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573751D761A630093D60F /* ProjectorPrototypeUITests.swift */; };
+		6CE5738B1D763F440093D60F /* SCNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE5738A1D763F440093D60F /* SCNExtensions.swift */; };
+		6CE573B71D774B0A0093D60F /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE573B21D774B0A0093D60F /* libLeap.dylib */; };
+		6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */; };
+		6CE573BB1D774B370093D60F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573B91D774B370093D60F /* GameScene.swift */; };
+		6CE573BC1D774B370093D60F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6CE573BA1D774B370093D60F /* GameScene.sks */; };
+		6CE573C11D774B520093D60F /* LeapMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573BF1D774B520093D60F /* LeapMotionManager.swift */; };
+		6CE573C21D774B520093D60F /* LeapMotionFrameHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */; };
+		6CE573C41D774E1F0093D60F /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6CE573B21D774B0A0093D60F /* libLeap.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6CE573C61D77645C0093D60F /* painting_surface.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 6CE573C51D77645C0093D60F /* painting_surface.glsl */; };
+		6CE573C81D777F220093D60F /* CursorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573C71D777F220093D60F /* CursorScene.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6CE573671D761A630093D60F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6CE573491D761A630093D60F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CE573501D761A630093D60F;
+			remoteInfo = ProjectorPrototype;
+		};
+		6CE573721D761A630093D60F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6CE573491D761A630093D60F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6CE573501D761A630093D60F;
+			remoteInfo = ProjectorPrototype;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6CE573C31D774DE70093D60F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				6CE573C41D774E1F0093D60F /* libLeap.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Bacon.swift"; sourceTree = "<group>"; };
+		6CE573511D761A630093D60F /* ProjectorPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectorPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE573541D761A630093D60F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6CE573561D761A630093D60F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		6CE573581D761A630093D60F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		6CE5735A1D761A630093D60F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		6CE5735C1D761A630093D60F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6CE5735F1D761A630093D60F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6CE573611D761A630093D60F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CE573661D761A630093D60F /* ProjectorPrototypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectorPrototypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE5736A1D761A630093D60F /* ProjectorPrototypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectorPrototypeTests.swift; sourceTree = "<group>"; };
+		6CE5736C1D761A630093D60F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CE573711D761A630093D60F /* ProjectorPrototypeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectorPrototypeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE573751D761A630093D60F /* ProjectorPrototypeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectorPrototypeUITests.swift; sourceTree = "<group>"; };
+		6CE573771D761A630093D60F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CE5738A1D763F440093D60F /* SCNExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCNExtensions.swift; sourceTree = "<group>"; };
+		6CE5738D1D7660320093D60F /* ProjectorPrototype-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ProjectorPrototype-Bridging-Header.h"; path = "LeapObjCSDK/ProjectorPrototype-Bridging-Header.h"; sourceTree = "<group>"; };
+		6CE573B21D774B0A0093D60F /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libLeap.dylib; sourceTree = "<group>"; };
+		6CE573B31D774B0A0093D60F /* Leap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leap.h; sourceTree = "<group>"; };
+		6CE573B41D774B0A0093D60F /* LeapMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMath.h; sourceTree = "<group>"; };
+		6CE573B51D774B0A0093D60F /* LeapObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapObjectiveC.h; sourceTree = "<group>"; };
+		6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LeapObjectiveC.mm; sourceTree = "<group>"; };
+		6CE573B91D774B370093D60F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		6CE573BA1D774B370093D60F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		6CE573BF1D774B520093D60F /* LeapMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeapMotionManager.swift; sourceTree = "<group>"; };
+		6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeapMotionFrameHelper.swift; sourceTree = "<group>"; };
+		6CE573C51D77645C0093D60F /* painting_surface.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = painting_surface.glsl; sourceTree = "<group>"; };
+		6CE573C71D777F220093D60F /* CursorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorScene.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6CE5734E1D761A630093D60F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE573B71D774B0A0093D60F /* libLeap.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE573631D761A630093D60F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE5736E1D761A630093D60F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6CBFD1001D787D3600408561 /* Leap Motion */ = {
+			isa = PBXGroup;
+			children = (
+				6CE573BF1D774B520093D60F /* LeapMotionManager.swift */,
+				6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */,
+				6CE573BD1D774B3B0093D60F /* SDK */,
+			);
+			name = "Leap Motion";
+			sourceTree = "<group>";
+		};
+		6CBFD1011D787D4B00408561 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6CE5738A1D763F440093D60F /* SCNExtensions.swift */,
+				6CE573541D761A630093D60F /* AppDelegate.swift */,
+				6CE5735A1D761A630093D60F /* art.scnassets */,
+				6CE5735C1D761A630093D60F /* Assets.xcassets */,
+				6CE5735E1D761A630093D60F /* MainMenu.xib */,
+				6CE573611D761A630093D60F /* Info.plist */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		6CE573481D761A630093D60F = {
+			isa = PBXGroup;
+			children = (
+				6CE573531D761A630093D60F /* ProjectorPrototype */,
+				6CE573691D761A630093D60F /* ProjectorPrototypeTests */,
+				6CE573741D761A630093D60F /* ProjectorPrototypeUITests */,
+				6CE573521D761A630093D60F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6CE573521D761A630093D60F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6CE573511D761A630093D60F /* ProjectorPrototype.app */,
+				6CE573661D761A630093D60F /* ProjectorPrototypeTests.xctest */,
+				6CE573711D761A630093D60F /* ProjectorPrototypeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6CE573531D761A630093D60F /* ProjectorPrototype */ = {
+			isa = PBXGroup;
+			children = (
+				6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */,
+				6CE573BE1D774B450093D60F /* SpriteKit */,
+				6CBFD1011D787D4B00408561 /* App */,
+				6CBFD1001D787D3600408561 /* Leap Motion */,
+				6CE573C51D77645C0093D60F /* painting_surface.glsl */,
+				6CE573561D761A630093D60F /* GameView.swift */,
+				6CE573581D761A630093D60F /* GameViewController.swift */,
+			);
+			path = ProjectorPrototype;
+			sourceTree = "<group>";
+		};
+		6CE573691D761A630093D60F /* ProjectorPrototypeTests */ = {
+			isa = PBXGroup;
+			children = (
+				6CE5736A1D761A630093D60F /* ProjectorPrototypeTests.swift */,
+				6CE5736C1D761A630093D60F /* Info.plist */,
+			);
+			path = ProjectorPrototypeTests;
+			sourceTree = "<group>";
+		};
+		6CE573741D761A630093D60F /* ProjectorPrototypeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				6CE573751D761A630093D60F /* ProjectorPrototypeUITests.swift */,
+				6CE573771D761A630093D60F /* Info.plist */,
+			);
+			path = ProjectorPrototypeUITests;
+			sourceTree = "<group>";
+		};
+		6CE573BD1D774B3B0093D60F /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				6CE573B21D774B0A0093D60F /* libLeap.dylib */,
+				6CE573B31D774B0A0093D60F /* Leap.h */,
+				6CE573B41D774B0A0093D60F /* LeapMath.h */,
+				6CE573B51D774B0A0093D60F /* LeapObjectiveC.h */,
+				6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */,
+				6CE5738D1D7660320093D60F /* ProjectorPrototype-Bridging-Header.h */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		6CE573BE1D774B450093D60F /* SpriteKit */ = {
+			isa = PBXGroup;
+			children = (
+				6CE573B91D774B370093D60F /* GameScene.swift */,
+				6CE573C71D777F220093D60F /* CursorScene.swift */,
+				6CE573BA1D774B370093D60F /* GameScene.sks */,
+			);
+			name = SpriteKit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6CE573501D761A630093D60F /* ProjectorPrototype */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CE5737A1D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototype" */;
+			buildPhases = (
+				6CE5734D1D761A630093D60F /* Sources */,
+				6CE5734E1D761A630093D60F /* Frameworks */,
+				6CE5734F1D761A630093D60F /* Resources */,
+				6CE573C31D774DE70093D60F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ProjectorPrototype;
+			productName = ProjectorPrototype;
+			productReference = 6CE573511D761A630093D60F /* ProjectorPrototype.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6CE573651D761A630093D60F /* ProjectorPrototypeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CE5737D1D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototypeTests" */;
+			buildPhases = (
+				6CE573621D761A630093D60F /* Sources */,
+				6CE573631D761A630093D60F /* Frameworks */,
+				6CE573641D761A630093D60F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6CE573681D761A630093D60F /* PBXTargetDependency */,
+			);
+			name = ProjectorPrototypeTests;
+			productName = ProjectorPrototypeTests;
+			productReference = 6CE573661D761A630093D60F /* ProjectorPrototypeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6CE573701D761A630093D60F /* ProjectorPrototypeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CE573801D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototypeUITests" */;
+			buildPhases = (
+				6CE5736D1D761A630093D60F /* Sources */,
+				6CE5736E1D761A630093D60F /* Frameworks */,
+				6CE5736F1D761A630093D60F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6CE573731D761A630093D60F /* PBXTargetDependency */,
+			);
+			name = ProjectorPrototypeUITests;
+			productName = ProjectorPrototypeUITests;
+			productReference = 6CE573711D761A630093D60F /* ProjectorPrototypeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6CE573491D761A630093D60F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Brix;
+				TargetAttributes = {
+					6CE573501D761A630093D60F = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					6CE573651D761A630093D60F = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 6CE573501D761A630093D60F;
+					};
+					6CE573701D761A630093D60F = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 6CE573501D761A630093D60F;
+					};
+				};
+			};
+			buildConfigurationList = 6CE5734C1D761A630093D60F /* Build configuration list for PBXProject "ProjectorPrototype" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6CE573481D761A630093D60F;
+			productRefGroup = 6CE573521D761A630093D60F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6CE573501D761A630093D60F /* ProjectorPrototype */,
+				6CE573651D761A630093D60F /* ProjectorPrototypeTests */,
+				6CE573701D761A630093D60F /* ProjectorPrototypeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6CE5734F1D761A630093D60F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE573BC1D774B370093D60F /* GameScene.sks in Resources */,
+				6CE5735D1D761A630093D60F /* Assets.xcassets in Resources */,
+				6CE573C61D77645C0093D60F /* painting_surface.glsl in Resources */,
+				6CE5735B1D761A630093D60F /* art.scnassets in Resources */,
+				6CE573601D761A630093D60F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE573641D761A630093D60F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE5736F1D761A630093D60F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6CE5734D1D761A630093D60F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE573BB1D774B370093D60F /* GameScene.swift in Sources */,
+				6CE573C21D774B520093D60F /* LeapMotionFrameHelper.swift in Sources */,
+				6CE573C81D777F220093D60F /* CursorScene.swift in Sources */,
+				6CE573571D761A630093D60F /* GameView.swift in Sources */,
+				6CE573591D761A630093D60F /* GameViewController.swift in Sources */,
+				6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */,
+				6CE5738B1D763F440093D60F /* SCNExtensions.swift in Sources */,
+				6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */,
+				6CE573C11D774B520093D60F /* LeapMotionManager.swift in Sources */,
+				6CE573551D761A630093D60F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE573621D761A630093D60F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE5736B1D761A630093D60F /* ProjectorPrototypeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6CE5736D1D761A630093D60F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CE573761D761A630093D60F /* ProjectorPrototypeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6CE573681D761A630093D60F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6CE573501D761A630093D60F /* ProjectorPrototype */;
+			targetProxy = 6CE573671D761A630093D60F /* PBXContainerItemProxy */;
+		};
+		6CE573731D761A630093D60F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6CE573501D761A630093D60F /* ProjectorPrototype */;
+			targetProxy = 6CE573721D761A630093D60F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6CE5735E1D761A630093D60F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6CE5735F1D761A630093D60F /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6CE573781D761A630093D60F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6CE573791D761A630093D60F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6CE5737B1D761A630093D60F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ProjectorPrototype/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ProjectorPrototype",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototype;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectorPrototype/LeapObjCSDK/ProjectorPrototype-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6CE5737C1D761A630093D60F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ProjectorPrototype/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ProjectorPrototype",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototype;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ProjectorPrototype/LeapObjCSDK/ProjectorPrototype-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		6CE5737E1D761A630093D60F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = ProjectorPrototypeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototypeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectorPrototype.app/Contents/MacOS/ProjectorPrototype";
+			};
+			name = Debug;
+		};
+		6CE5737F1D761A630093D60F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ProjectorPrototypeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototypeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectorPrototype.app/Contents/MacOS/ProjectorPrototype";
+			};
+			name = Release;
+		};
+		6CE573811D761A630093D60F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = ProjectorPrototypeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototypeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ProjectorPrototype;
+			};
+			name = Debug;
+		};
+		6CE573821D761A630093D60F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ProjectorPrototypeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototypeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = ProjectorPrototype;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CE5734C1D761A630093D60F /* Build configuration list for PBXProject "ProjectorPrototype" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CE573781D761A630093D60F /* Debug */,
+				6CE573791D761A630093D60F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CE5737A1D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototype" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CE5737B1D761A630093D60F /* Debug */,
+				6CE5737C1D761A630093D60F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CE5737D1D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototypeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CE5737E1D761A630093D60F /* Debug */,
+				6CE5737F1D761A630093D60F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6CE573801D761A630093D60F /* Build configuration list for PBXNativeTarget "ProjectorPrototypeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CE573811D761A630093D60F /* Debug */,
+				6CE573821D761A630093D60F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6CE573491D761A630093D60F /* Project object */;
+}

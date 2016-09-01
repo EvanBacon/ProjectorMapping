@@ -1,10 +1,10 @@
 import SimpleOpenNI.*;
-import processing.video.*;
 
-Movie movie;
 SimpleOpenNI kinect;
 PVector[] depthMap;
 float[] projectorMatrix;
+ArrayList<User> users;
+PGraphics pg;
 
 void setup()
 {
@@ -12,40 +12,61 @@ void setup()
   //size(displayWidth, displayHeight, P2D); 
   imageMode(CENTER);
   
+    img = loadImage("dildo.png");
+  colorMode(HSB);
+
   // set up kinect
   kinect = new SimpleOpenNI(this);
   kinect.setMirror(false);
   kinect.enableDepth();
   kinect.enableUser();
   
-  // load calibration
   projectorMatrix = loadCalibration("calib1.txt");
   
-  // load KRANG!!
-  movie = new Movie(this, "krang.mp4");
-  movie.loop();
-
+  users = new ArrayList<User>();
+  pg = createGraphics(400, 400);
 }
 
 void draw()
 {
+  renderFireball();  
   kinect.update();
   depthMap = kinect.depthMapRealWorld();
   
-  background(255);
-  PVector torsoKinectRealWorld = new PVector();
-  PVector torsoProjected = new PVector();  
-  int[] userList = kinect.getUsers();
-  for(int i=0; i<userList.length; i++) {
-    if(kinect.isTrackingSkeleton(userList[i])) {
-      kinect.getJointPositionSkeleton(userList[i], SimpleOpenNI.SKEL_TORSO, torsoKinectRealWorld);
-      torsoProjected = convertKinectToProjector(torsoKinectRealWorld);
-      float x = torsoProjected.x;
-      float y = torsoProjected.y;
-      float w = map(torsoKinectRealWorld.z, 3500, 500, 80, 320);
-      image(movie, x, y, w, w*(192.0/276.0));
+  background(0);
+  for (User user : users) {
+    drawProjectedSkeleton(user.userId);
+    user.lookForFireballMotion();
+    user.drawFireballs();
+  }
+}
+
+void renderFireball() {
+  int nk = 36;
+  int n = 180;
+  pg.beginDraw();
+  pg.clear();
+  pg.colorMode(HSB);
+  pg.noStroke();
+  pg.translate(pg.width/2, pg.height/2);
+  for (int k=0; k<nk; k++) {
+    pg.fill(map(k, 0, nk, 5, 40),
+            map(noise(0.01*k+10, 0.01*frameCount+15), 0, 1, 180, 250), 
+            map(noise(0.01*k+20, 0.01*frameCount+25), 0, 1, 180, 250), 100);
+    pg.rotate(noise(k));
+    pg.beginShape();
+    for (int i=0; i<n; i++) {
+      float ang = map(i, 0, n, 0, TWO_PI);
+      float rad = map(noise(0.04*i+k, 0.03*frameCount+5), 0, 1, 
+                      map(k, 0, nk, pg.width/6, 0),
+                      map(k, 0, nk, pg.width/2, 10));
+      float x = rad * cos(ang);
+      float y = rad * sin(ang);
+      pg.curveVertex(x, y);
     }
-  } 
+    pg.endShape(CLOSE);
+  }
+  pg.endDraw();  
 }
 
 PVector convertKinectToProjector(PVector kp) {
@@ -67,8 +88,4 @@ float[] loadCalibration(String filename) {
   for (int i=0; i<s.length; i++)
     projectorMatrix[i] = Float.parseFloat(s[i]);
   return projectorMatrix;
-}
-
-void movieEvent(Movie m) {
-  m.read();
 }
