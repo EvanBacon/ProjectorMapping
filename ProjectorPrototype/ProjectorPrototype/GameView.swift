@@ -74,11 +74,16 @@ class GameView: SCNView {
                     let texcoords = result.textureCoordinatesWithMappingChannel((result.node!.geometry?.firstMaterial?.diffuse.mappingChannel)!)
                     let hit = CGPointMake(CGFloat(texcoords.x * image!.size.width), CGFloat(texcoords.y * image!.size.height))
 
-                    let emoji = SKLabelNode(text: "Theo")
-                    emoji.fontColor = NSColor().randomSolidHueColor()
+//                    let emoji = SKLabelNode(text: "Theo")
+//                    emoji.fontColor = NSColor().randomSolidHueColor()
+//                    emoji.fontSize = CGFloat(drand48() * 100) + 24
+
                     
-                    emoji.fontSize = CGFloat(drand48() * 100) + 24
-                    emoji.zRotation = CGFloat(drand48() * M_PI)
+                    let tex = SKTexture(imageNamed: "obi")
+                    let emoji = SKSpriteNode(texture: tex)
+                    emoji.zRotation = CGFloat(M_PI)
+                    
+//                    emoji.zRotation = CGFloat(drand48() * M_PI)
                     emoji.position = hit
                     scene.addChild(emoji)
 //                    self.layer?.backgroundColor = color.CGColor

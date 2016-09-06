@@ -30,6 +30,38 @@ extension CursorScene: LeapMotionManagerDelegate {
             }
         }
     }
+    func rotateGesture(gesture: LeapCircleGesture) {
+     
+    }
+    func swipeGesture(gesture: LeapSwipeGesture) {
+        var direction = gesture.direction
+        var speed = gesture.speed
+        var position = gesture.position
+        var id = gesture.id
+        
+        
+        switch gesture.state {
+        case LEAP_GESTURE_STATE_START:
+            break
+        case LEAP_GESTURE_STATE_UPDATE:
+            break
+        case LEAP_GESTURE_STATE_STOP:
+            break
+        case LEAP_GESTURE_STATE_INVALID:
+            break
+        default:
+            fatalError("WTF")
+            break
+        }
+
+        print(direction, direction.direction2D, speed, position, id, gesture.state)
+    }
+    func keyTapGesture(gesture: LeapKeyTapGesture) {
+        
+    }
+    func screenTapGesture(gesture: LeapScreenTapGesture) {
+        
+    }
     
     
     

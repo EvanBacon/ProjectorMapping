@@ -10,218 +10,9 @@ import SceneKit
 import QuartzCore
 import SpriteKit
 
-extension SCNNode {
-    
-    func size() -> SCNVector3 {
-        var min = SCNVector3Zero
-        var max = SCNVector3Zero
-        getBoundingBoxMin(&min, max: &max)
-        
-        return max - min
-    }
-    func min() -> SCNVector3 {
-        var min = SCNVector3Zero
-        var max = SCNVector3Zero
-        getBoundingBoxMin(&min, max: &max)
-        
-        return min
-    }
-    
-    func centerPivot() {
-        var minVec = SCNVector3Zero
-        var maxVec = SCNVector3Zero
-        if getBoundingBoxMin(&minVec, max: &maxVec) {
-            let bound = SCNVector3(
-                x: maxVec.x - minVec.x,
-                y: maxVec.y - minVec.y,
-                z: maxVec.z - minVec.z)
-            
-            pivot = SCNMatrix4MakeTranslation(bound.x / 2, bound.y / 2, bound.z / 2)
-        }
-    }
-    
-}
 
-struct Uniforms {
-    var coord:vector_float2
-}
+let DEBUG = true
 
-func + (lhs:LeapVector, rhs:LeapVector) -> LeapVector {
-    return LeapVector(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
-}
-func - (lhs:LeapVector, rhs:LeapVector) -> LeapVector {
-    return LeapVector(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
-}
-
-func + (lhs:CGPoint, rhs:CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-}
-func - (lhs:CGPoint, rhs:CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
-}
-
-
-extension GameViewController: LeapMotionManagerDelegate {
-    
-    func leapMotionManagerDidUpdateFrame(frame: LeapFrame) {
-        if let hands = frame.hands as? [LeapHand] {
-            if hands.count <= 0 {
-                return
-            }
-            for hand in hands {
-                
-                if hand.grabbing {
-                    if !isGrabbing {
-                        startingPoint = adjustedPoint(hand.palmPosition)
-                    } else {
-                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint)
-                    }
-//                    print( hand.palmPosition - startingPoint )
-                    
-                    
-                } else {
-                    if isGrabbing {
-                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint, end: true)
-                        startingPoint = CGPointZero
-                    }
-                }
-                
-                if hand.pinching {
-                    addDrawing(hand)
-                } else {
-                    if isDrawing {
-                        //End Line
-                        endDrawing()
-                    }
-                }
-                isGrabbing = hand.grabbing
-                isDrawing = hand.pinching
-                break
-            }
-        }
-    }
-    
-    func endDrawing() {
-        drawing.append([])
-    }
-    
-    func addDrawing(hand:LeapHand) {
-        let p = adjustedPoint(hand.palmPosition)
-        guard let position = mappedPoint(p) else { return }
-        
-        
-        let strength = hand.palmVelocity.magnitude
-        //        let position = (hand.index?.tipPosition.toPoint())!
-        let intent = LeapDrawingIntent(strength: strength, position: position, color: NSColor.greenColor())
-        
-        drawing[drawing.count - 1].append(intent)
-        
-        needsUpdate = true
-    }
-    
-    func renderDrawing() {
-        
-        if redrawComplete {
-            self.redrawComplete = false
-            dispatch_async(dispatch_get_main_queue(),{
-                
-                if self.texture.children.count == self.drawing.count {
-                    self.texture.children.last?.removeFromParent()
-                }
-                //            self.texture.enumerateChildNodesWithName("line", usingBlock: { node, stop in
-                //                node.removeFromParent()
-                //
-                //            })
-                
-                let line = self.drawing.last!
-                
-                if let path = self.buildPath(line) {
-                    let shapeNode = SKShapeNode()
-                    shapeNode.path = path
-                    shapeNode.name = "line"
-                    shapeNode.strokeColor = NSColor.orangeColor()
-                    shapeNode.lineWidth = 6
-                    shapeNode.zPosition = 1
-                    shapeNode.blendMode = SKBlendMode.Alpha;
-
-                    self.texture.addChild(shapeNode)
-                    
-                }
-                
-                
-                self.redrawComplete = true
-                
-            })
-        }
-        
-    }
-    
-    func mappedPoint(point:CGPoint) -> CGPoint? {
-        
-        //        let p = self.convertPoint(point, fromView: nil)
-        let hitResults = gameView.hitTest(point, options: [SCNHitTestFirstFoundOnlyKey: true])
-        // check that we clicked on at least one object
-        if hitResults.count > 0 {
-            // retrieved the first clicked object
-            let result: AnyObject = hitResults[0]
-            
-            let texcoords = result.textureCoordinatesWithMappingChannel((result.node!.geometry?.firstMaterial?.diffuse.mappingChannel)!)
-            let hit = CGPointMake(CGFloat(texcoords.x * texture!.size.width), CGFloat(texcoords.y * texture!.size.height))
-            
-            return hit
-        }
-        
-        return nil
-    }
-    
-    func buildPath(line: [LeapDrawingIntent]) -> CGPathRef? {
-        //1
-        if line.count <= 1 {
-            return nil
-        }
-        
-        
-        //2
-        let ref = CGPathCreateMutable()
-        
-        //3
-        for i in 0..<line.count {
-            let p = line[i].position
-            
-            //4
-            if i == 0 {
-                CGPathMoveToPoint(ref, nil, p.x, p.y)
-            } else {
-                CGPathAddLineToPoint(ref, nil, p.x, p.y)
-            }
-        }
-        
-        return ref
-        
-    }
-    
-    func adjustedPoint(point:LeapVector) -> CGPoint {
-        
-        let appWidth = self.gameView.frame.width
-        let appHeight = self.gameView.frame.height
-        
-        if let currentFrame = LeapMotionManager.sharedInstance.currentFrame {
-            let iBox = currentFrame.interactionBox()
-            
-            
-            let normalizedPoint = iBox.normalizePoint(point, clamp: true).toPoint()
-            
-            let appX = normalizedPoint.x * appWidth
-            let appY = (normalizedPoint.y) * appHeight
-            //            //The z-coordinate is not used
-            //
-            return CGPoint(x: appX, y: appY)
-        } else {
-            return CGPointZero
-        }
-    }
-    
-}
 class GameViewController: NSViewController {
     
     var startingPoint = CGPointZero
@@ -251,9 +42,9 @@ class GameViewController: NSViewController {
         
         
         // create a new scene
-        //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/Gown.dae")!
         //        let scene = SCNScene(named: "art.scnassets/Stormtrooper.scn")!
-        let scene = SCNScene()
+        //let scene = SCNScene()
         
         // create and add a camera to the scene
         cameraNode.camera = SCNCamera()
@@ -286,8 +77,12 @@ class GameViewController: NSViewController {
         
         //        let armature = scene.rootNode.childNodeWithName("Armature", recursively: true)!
         
-        //        mesh = scene.rootNode.childNodeWithName("Stormtrooper", recursively: true)!
-        mesh = SCNNode(geometry: SCNSphere(radius: 1))
+        
+        
+        mesh = scene.rootNode.childNodeWithName("gown", recursively: true)!
+        //mesh.geometry?.materials = []
+        //mesh.geometry?.firstMaterial = SCNMaterial()
+        //mesh = SCNNode(geometry: SCNSphere(radius: 1))
         mesh.geometry?.firstMaterial?.diffuse.contents = texture
         scene.rootNode.addChildNode(mesh)
         
@@ -308,10 +103,10 @@ class GameViewController: NSViewController {
         
         
         // allows the user to manipulate the camera
-        self.gameView!.allowsCameraControl = false
+        self.gameView!.allowsCameraControl = DEBUG
         
         // show statistics such as fps and timing information
-        self.gameView!.showsStatistics = true
+        self.gameView!.showsStatistics = DEBUG
         
         // configure the view
         self.gameView!.backgroundColor = NSColor.blackColor()
@@ -337,7 +132,9 @@ class GameViewController: NSViewController {
         scene.rootNode.addChildNode(altCameraNode)
         
         altCameraNode.camera?.usesOrthographicProjection = true
-        //        altCameraNode.camera?.orthographicScale = Double(size.z * 0.5)
+        altCameraNode.camera?.orthographicScale = Double(scene.rootNode.size().z)
+        
+//                altCameraNode.camera?.orthographicScale = Double(size.z * 0.5)
         NSLog("\(size)", "")
         // place the camera
         
@@ -345,10 +142,10 @@ class GameViewController: NSViewController {
         altView.scene = scene
         
         // allows the user to manipulate the camera
-        altView.allowsCameraControl = false
+        altView.allowsCameraControl = DEBUG
         
         // show statistics such as fps and timing information
-        altView.showsStatistics = true
+        altView.showsStatistics = DEBUG
         
         // configure the view
         altView.backgroundColor = NSColor.blackColor()
@@ -387,13 +184,11 @@ class GameViewController: NSViewController {
         
         _ = NSTimer.scheduledTimerWithTimeInterval(1/16, target: self, selector: #selector(GameViewController.update), userInfo: nil, repeats: true)
         
-        
+
     }
     
     func update() {
-        self.mesh.removeAllActions()
         self.mesh.runAction(SCNAction.fadeInWithDuration(0.000001))
-        
         if needsUpdate {
             needsUpdate = false
             renderDrawing()
@@ -406,7 +201,7 @@ class GameViewController: NSViewController {
     
     var curXRadians = Float(0)
     var curYRadians = Float(0)
-    var lastXRadians = Int(0)
+    var lastXRadians = Float(0)
     var lastYRadians = Int(0)
     
     //    override func mouseDragged(event: NSEvent) {
@@ -416,6 +211,7 @@ class GameViewController: NSViewController {
     //    override func mouseUp(event: NSEvent) {
     //        updateDrag(event)
     //    }
+    
     
     func updateDrag(translation:CGPoint, end:Bool=false) {
         
@@ -431,15 +227,26 @@ class GameViewController: NSViewController {
         // -- Limit rotation to prevent looking 360 degrees vertically
         //        yRadians = max(Float(-M_PI_2), min(Float(M_PI_2), yRadians))
         
-        mesh.rotation = SCNVector4Make(0, 1, 0, CGFloat(xRadians))
         //        cameraNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: CGFloat(yRadians))
         //        lastXRadians = event.absoluteX
         //        lastYRadians = event.absoluteY
         
                 if end {
-        curXRadians = xRadians
+                    
+//                    let dif = xRadians + (( lastXRadians - xRadians ))
+//                    
+//                    let a = SCNAction.rotateToAxisAngle(SCNVector4Make(0, 1, 0, CGFloat(dif)), duration: 5)
+//                    a.timingMode = .EaseOut
+//                    self.mesh.runAction(a)
+
+                    curXRadians = xRadians
+
         //            curYRadians = yRadians
-                }
+                }  else {
+                    mesh.rotation = SCNVector4Make(0, 1, 0, CGFloat(xRadians))
+    
+        }
+        lastXRadians = xRadians
     }
     
     func getSphericalCoords(s: Float, t: Float, r: Float) -> SCNVector3 {
@@ -523,10 +330,261 @@ extension NSImage {
     }
 }
 
-
 extension GameViewController: SCNSceneRendererDelegate {
     func renderer(renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: NSTimeInterval)  {
     }
+}
+
+struct LeapDrawingIntent {
+    let strength:Float!
+    let position:CGPoint!
+    let color:NSColor!
+    init(strength:Float, position:CGPoint, color:NSColor) {
+        self.strength = strength
+        self.position = position
+        self.color = color
+    }
+}
+extension LeapVector {
+    func toPoint() -> CGPoint {
+        return CGPointMake(CGFloat(x), CGFloat(y))
+    }
+}
+
+extension SCNNode {
+    func size() -> SCNVector3 {
+        var min = SCNVector3Zero
+        var max = SCNVector3Zero
+        getBoundingBoxMin(&min, max: &max)
+        
+        return max - min
+    }
     
+    func min() -> SCNVector3 {
+        var min = SCNVector3Zero
+        var max = SCNVector3Zero
+        getBoundingBoxMin(&min, max: &max)
+        
+        return min
+    }
+    
+    func centerPivot() {
+        var minVec = SCNVector3Zero
+        var maxVec = SCNVector3Zero
+        if getBoundingBoxMin(&minVec, max: &maxVec) {
+            let bound = SCNVector3(
+                x: maxVec.x - minVec.x,
+                y: maxVec.y - minVec.y,
+                z: maxVec.z - minVec.z)
+            
+            pivot = SCNMatrix4MakeTranslation(bound.x / 2, bound.y / 2, bound.z / 2)
+        }
+    }
+}
+
+struct Uniforms {
+    var coord:vector_float2
+}
+
+func + (lhs:LeapVector, rhs:LeapVector) -> LeapVector {
+    return LeapVector(x: lhs.x + rhs.x, y: lhs.y + rhs.y, z: lhs.z + rhs.z)
+}
+
+func - (lhs:LeapVector, rhs:LeapVector) -> LeapVector {
+    return LeapVector(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
+}
+
+func + (lhs:CGPoint, rhs:CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+}
+
+func - (lhs:CGPoint, rhs:CGPoint) -> CGPoint {
+    return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+}
+
+
+extension GameViewController: LeapMotionManagerDelegate {
+    
+    func leapMotionManagerDidUpdateFrame(frame: LeapFrame) {
+        if let hands = frame.hands as? [LeapHand] {
+            if hands.count <= 0 {
+                return
+            }
+            for hand in hands {
+                
+                if hand.grabbing {
+                    if !isGrabbing {
+                        startingPoint = adjustedPoint(hand.palmPosition)
+                    } else {
+                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint)
+                    }
+                    //                    print( hand.palmPosition - startingPoint )
+                    
+                    
+                } else {
+                    if isGrabbing {
+                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint, end: true)
+                        startingPoint = CGPointZero
+                    }
+                }
+                
+                if hand.pinching {
+                    addDrawing(hand)
+                } else {
+                    if isDrawing {
+                        //End Line
+                        endDrawing()
+                    }
+                }
+                isGrabbing = hand.grabbing
+                isDrawing = hand.pinching
+                break
+            }
+        }
+    }
+    
+    func rotateGesture(gesture: LeapCircleGesture) {
+        
+    }
+    
+    func swipeGesture(gesture: LeapSwipeGesture) {
+        
+    }
+    
+    func keyTapGesture(gesture: LeapKeyTapGesture) {
+        
+    }
+    
+    func screenTapGesture(gesture: LeapScreenTapGesture) {
+        
+    }
+    
+}
+
+extension GameViewController {
+    
+    func endDrawing() {
+        drawing.append([])
+    }
+    
+    func addDrawing(hand:LeapHand) {
+        let p = adjustedPoint(hand.palmPosition)
+        guard let position = mappedPoint(p) else { return }
+        
+        
+        let strength = hand.palmVelocity.magnitude
+        //        let position = (hand.index?.tipPosition.toPoint())!
+        let intent = LeapDrawingIntent(strength: strength, position: position, color: NSColor.greenColor())
+        
+        drawing[drawing.count - 1].append(intent)
+        
+        needsUpdate = true
+    }
+    
+    func renderDrawing() {
+        
+        if redrawComplete {
+            self.redrawComplete = false
+            dispatch_async(dispatch_get_main_queue(),{
+                
+                if self.texture.children.count == self.drawing.count {
+                    self.texture.children.last?.removeFromParent()
+                }
+                //            self.texture.enumerateChildNodesWithName("line", usingBlock: { node, stop in
+                //                node.removeFromParent()
+                //
+                //            })
+                
+                let line = self.drawing.last!
+                
+                if let path = self.buildPath(line) {
+                    let shapeNode = SKShapeNode()
+                    shapeNode.path = path
+                    shapeNode.name = "line"
+                    shapeNode.strokeColor = NSColor.orangeColor()
+                    shapeNode.lineWidth = 6
+                    shapeNode.zPosition = 1
+                    shapeNode.blendMode = SKBlendMode.Alpha;
+                    
+                    self.texture.addChild(shapeNode)
+                    
+                }
+                
+                
+                self.redrawComplete = true
+                
+            })
+        }
+        
+    }
+    
+    func mappedPoint(point:CGPoint) -> CGPoint? {
+        
+        //        let p = self.convertPoint(point, fromView: nil)
+        let hitResults = gameView.hitTest(point, options: [SCNHitTestFirstFoundOnlyKey: true])
+        // check that we clicked on at least one object
+        if hitResults.count > 0 {
+            // retrieved the first clicked object
+            let result: AnyObject = hitResults[0]
+            
+            if let mappingChannel = result.node!.geometry?.firstMaterial?.diffuse.mappingChannel {
+                let texcoords = result.textureCoordinatesWithMappingChannel(mappingChannel)
+                
+                let hit = CGPointMake(CGFloat(texcoords.x * texture!.size.width), CGFloat(texcoords.y * texture!.size.height))
+                return hit
+            }
+            
+            
+        }
+        
+        return nil
+    }
+    
+    func buildPath(line: [LeapDrawingIntent]) -> CGPathRef? {
+        //1
+        if line.count <= 1 {
+            return nil
+        }
+        
+        
+        //2
+        let ref = CGPathCreateMutable()
+        
+        //3
+        for i in 0..<line.count {
+            let p = line[i].position
+            
+            //4
+            if i == 0 {
+                CGPathMoveToPoint(ref, nil, p.x, p.y)
+            } else {
+                CGPathAddLineToPoint(ref, nil, p.x, p.y)
+            }
+        }
+        
+        return ref
+        
+    }
+    
+    func adjustedPoint(point:LeapVector) -> CGPoint {
+        
+        let appWidth = self.gameView.frame.width
+        let appHeight = self.gameView.frame.height
+        
+        if let currentFrame = LeapMotionManager.sharedInstance.currentFrame {
+            let iBox = currentFrame.interactionBox()
+            
+            
+            let normalizedPoint = iBox.normalizePoint(point, clamp: true).toPoint()
+            
+            let appX = normalizedPoint.x * appWidth
+            let appY = (normalizedPoint.y) * appHeight
+            //            //The z-coordinate is not used
+            //
+            return CGPoint(x: appX, y: appY)
+        } else {
+            return CGPointZero
+        }
+    }
 }
 

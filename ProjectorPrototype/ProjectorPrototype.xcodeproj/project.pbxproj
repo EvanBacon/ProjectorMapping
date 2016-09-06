@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */; };
+		6CBFD1161D78846000408561 /* MotionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1071D78846000408561 /* MotionGestureRecognizer.m */; };
+		6CBFD1171D78846000408561 /* MotionPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1091D78846000408561 /* MotionPanGestureRecognizer.m */; };
+		6CBFD1181D78846000408561 /* MotionSwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD10B1D78846000408561 /* MotionSwipeGestureRecognizer.m */; };
+		6CBFD1191D78846000408561 /* MotionRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD10D1D78846000408561 /* MotionRotationGestureRecognizer.m */; };
+		6CBFD11A1D78846000408561 /* MotionPinchGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD10F1D78846000408561 /* MotionPinchGestureRecognizer.m */; };
+		6CBFD11B1D78846000408561 /* MotionTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1111D78846000408561 /* MotionTapGestureRecognizer.m */; };
+		6CBFD11C1D78846000408561 /* MotionSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1131D78846000408561 /* MotionSubscriber.m */; };
+		6CBFD11D1D78846000408561 /* MotionAverages.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1151D78846000408561 /* MotionAverages.m */; };
+		6CBFD1231D78848500408561 /* LeapCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1201D78848500408561 /* LeapCore.m */; };
+		6CBFD1241D78848500408561 /* LeapSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1221D78848500408561 /* LeapSubscriber.m */; };
+		6CBFD1271D78B0C400408561 /* LeapCircleGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1261D78B0C400408561 /* LeapCircleGestureRecognizer.swift */; };
+		6CBFD12C1D78BD5B00408561 /* Kinect Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1291D78BD5B00408561 /* Kinect Controller.m */; };
+		6CBFD12D1D78BD5B00408561 /* Kinect Processing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD12B1D78BD5B00408561 /* Kinect Processing.m */; };
+		6CBFD1311D78BF2C00408561 /* libfreenect.0.5.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CBFD1301D78BF2C00408561 /* libfreenect.0.5.3.dylib */; };
+		6CBFD1351D78C21E00408561 /* messyroom.pcf in Resources */ = {isa = PBXBuildFile; fileRef = 6CBFD1341D78C20500408561 /* messyroom.pcf */; };
 		6CE573551D761A630093D60F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573541D761A630093D60F /* AppDelegate.swift */; };
 		6CE573571D761A630093D60F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573561D761A630093D60F /* GameView.swift */; };
 		6CE573591D761A630093D60F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573581D761A630093D60F /* GameViewController.swift */; };
@@ -19,8 +34,6 @@
 		6CE5738B1D763F440093D60F /* SCNExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE5738A1D763F440093D60F /* SCNExtensions.swift */; };
 		6CE573B71D774B0A0093D60F /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE573B21D774B0A0093D60F /* libLeap.dylib */; };
 		6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */; };
-		6CE573BB1D774B370093D60F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573B91D774B370093D60F /* GameScene.swift */; };
-		6CE573BC1D774B370093D60F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6CE573BA1D774B370093D60F /* GameScene.sks */; };
 		6CE573C11D774B520093D60F /* LeapMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573BF1D774B520093D60F /* LeapMotionManager.swift */; };
 		6CE573C21D774B520093D60F /* LeapMotionFrameHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */; };
 		6CE573C41D774E1F0093D60F /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6CE573B21D774B0A0093D60F /* libLeap.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -60,6 +73,35 @@
 
 /* Begin PBXFileReference section */
 		6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Bacon.swift"; sourceTree = "<group>"; };
+		6CBFD1051D78846000408561 /* MotionGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestures.h; sourceTree = "<group>"; };
+		6CBFD1061D78846000408561 /* MotionGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD1071D78846000408561 /* MotionGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD1081D78846000408561 /* MotionPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionPanGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD1091D78846000408561 /* MotionPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionPanGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD10A1D78846000408561 /* MotionSwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionSwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD10B1D78846000408561 /* MotionSwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionSwipeGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD10C1D78846000408561 /* MotionRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionRotationGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD10D1D78846000408561 /* MotionRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionRotationGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD10E1D78846000408561 /* MotionPinchGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionPinchGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD10F1D78846000408561 /* MotionPinchGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionPinchGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD1101D78846000408561 /* MotionTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionTapGestureRecognizer.h; sourceTree = "<group>"; };
+		6CBFD1111D78846000408561 /* MotionTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionTapGestureRecognizer.m; sourceTree = "<group>"; };
+		6CBFD1121D78846000408561 /* MotionSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionSubscriber.h; sourceTree = "<group>"; };
+		6CBFD1131D78846000408561 /* MotionSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionSubscriber.m; sourceTree = "<group>"; };
+		6CBFD1141D78846000408561 /* MotionAverages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionAverages.h; sourceTree = "<group>"; };
+		6CBFD1151D78846000408561 /* MotionAverages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionAverages.m; sourceTree = "<group>"; };
+		6CBFD11F1D78848500408561 /* LeapCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapCore.h; sourceTree = "<group>"; };
+		6CBFD1201D78848500408561 /* LeapCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeapCore.m; sourceTree = "<group>"; };
+		6CBFD1211D78848500408561 /* LeapSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapSubscriber.h; sourceTree = "<group>"; };
+		6CBFD1221D78848500408561 /* LeapSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeapSubscriber.m; sourceTree = "<group>"; };
+		6CBFD1261D78B0C400408561 /* LeapCircleGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeapCircleGestureRecognizer.swift; sourceTree = "<group>"; };
+		6CBFD1281D78BD5B00408561 /* Kinect Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kinect Controller.h"; sourceTree = "<group>"; };
+		6CBFD1291D78BD5B00408561 /* Kinect Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Kinect Controller.m"; sourceTree = "<group>"; };
+		6CBFD12A1D78BD5B00408561 /* Kinect Processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Kinect Processing.h"; sourceTree = "<group>"; };
+		6CBFD12B1D78BD5B00408561 /* Kinect Processing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Kinect Processing.m"; sourceTree = "<group>"; };
+		6CBFD12F1D78BD7C00408561 /* Kinect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Kinect.h; sourceTree = "<group>"; };
+		6CBFD1301D78BF2C00408561 /* libfreenect.0.5.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreenect.0.5.3.dylib; path = /usr/local/Cellar/libfreenect/0.5.3/lib/libfreenect.0.5.3.dylib; sourceTree = "<absolute>"; };
+		6CBFD1341D78C20500408561 /* messyroom.pcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = messyroom.pcf; sourceTree = "<group>"; };
 		6CE573511D761A630093D60F /* ProjectorPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectorPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE573541D761A630093D60F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CE573561D761A630093D60F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -81,8 +123,6 @@
 		6CE573B41D774B0A0093D60F /* LeapMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMath.h; sourceTree = "<group>"; };
 		6CE573B51D774B0A0093D60F /* LeapObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapObjectiveC.h; sourceTree = "<group>"; };
 		6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LeapObjectiveC.mm; sourceTree = "<group>"; };
-		6CE573B91D774B370093D60F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		6CE573BA1D774B370093D60F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		6CE573BF1D774B520093D60F /* LeapMotionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeapMotionManager.swift; sourceTree = "<group>"; };
 		6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeapMotionFrameHelper.swift; sourceTree = "<group>"; };
 		6CE573C51D77645C0093D60F /* painting_surface.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = painting_surface.glsl; sourceTree = "<group>"; };
@@ -94,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CBFD1311D78BF2C00408561 /* libfreenect.0.5.3.dylib in Frameworks */,
 				6CE573B71D774B0A0093D60F /* libLeap.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,7 +159,7 @@
 		6CBFD1001D787D3600408561 /* Leap Motion */ = {
 			isa = PBXGroup;
 			children = (
-				6CE573BF1D774B520093D60F /* LeapMotionManager.swift */,
+				6CE5738D1D7660320093D60F /* ProjectorPrototype-Bridging-Header.h */,
 				6CE573C01D774B520093D60F /* LeapMotionFrameHelper.swift */,
 				6CE573BD1D774B3B0093D60F /* SDK */,
 			);
@@ -136,6 +177,64 @@
 				6CE573611D761A630093D60F /* Info.plist */,
 			);
 			name = App;
+			sourceTree = "<group>";
+		};
+		6CBFD1041D78845300408561 /* Motion Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				6CBFD11E1D78846400408561 /* LeapCore */,
+				6CBFD1051D78846000408561 /* MotionGestures.h */,
+				6CBFD1061D78846000408561 /* MotionGestureRecognizer.h */,
+				6CBFD1071D78846000408561 /* MotionGestureRecognizer.m */,
+				6CBFD1081D78846000408561 /* MotionPanGestureRecognizer.h */,
+				6CBFD1091D78846000408561 /* MotionPanGestureRecognizer.m */,
+				6CBFD10A1D78846000408561 /* MotionSwipeGestureRecognizer.h */,
+				6CBFD10B1D78846000408561 /* MotionSwipeGestureRecognizer.m */,
+				6CBFD10C1D78846000408561 /* MotionRotationGestureRecognizer.h */,
+				6CBFD10D1D78846000408561 /* MotionRotationGestureRecognizer.m */,
+				6CBFD10E1D78846000408561 /* MotionPinchGestureRecognizer.h */,
+				6CBFD10F1D78846000408561 /* MotionPinchGestureRecognizer.m */,
+				6CBFD1101D78846000408561 /* MotionTapGestureRecognizer.h */,
+				6CBFD1111D78846000408561 /* MotionTapGestureRecognizer.m */,
+				6CBFD1121D78846000408561 /* MotionSubscriber.h */,
+				6CBFD1131D78846000408561 /* MotionSubscriber.m */,
+				6CBFD1141D78846000408561 /* MotionAverages.h */,
+				6CBFD1151D78846000408561 /* MotionAverages.m */,
+			);
+			name = "Motion Gestures";
+			sourceTree = "<group>";
+		};
+		6CBFD11E1D78846400408561 /* LeapCore */ = {
+			isa = PBXGroup;
+			children = (
+				6CBFD11F1D78848500408561 /* LeapCore.h */,
+				6CBFD1201D78848500408561 /* LeapCore.m */,
+				6CBFD1211D78848500408561 /* LeapSubscriber.h */,
+				6CBFD1221D78848500408561 /* LeapSubscriber.m */,
+			);
+			name = LeapCore;
+			sourceTree = "<group>";
+		};
+		6CBFD1251D78B0A400408561 /* Leap Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				6CBFD1261D78B0C400408561 /* LeapCircleGestureRecognizer.swift */,
+			);
+			name = "Leap Gestures";
+			sourceTree = "<group>";
+		};
+		6CBFD12E1D78BD5E00408561 /* Kinect */ = {
+			isa = PBXGroup;
+			children = (
+				6CBFD1341D78C20500408561 /* messyroom.pcf */,
+				6CBFD1301D78BF2C00408561 /* libfreenect.0.5.3.dylib */,
+				6CBFD1281D78BD5B00408561 /* Kinect Controller.h */,
+				6CBFD12F1D78BD7C00408561 /* Kinect.h */,
+				6CBFD1291D78BD5B00408561 /* Kinect Controller.m */,
+				6CBFD12A1D78BD5B00408561 /* Kinect Processing.h */,
+				6CBFD12B1D78BD5B00408561 /* Kinect Processing.m */,
+			);
+			name = Kinect;
 			sourceTree = "<group>";
 		};
 		6CE573481D761A630093D60F = {
@@ -161,13 +260,17 @@
 		6CE573531D761A630093D60F /* ProjectorPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				6CBFD12E1D78BD5E00408561 /* Kinect */,
 				6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */,
+				6CBFD1041D78845300408561 /* Motion Gestures */,
 				6CE573BE1D774B450093D60F /* SpriteKit */,
 				6CBFD1011D787D4B00408561 /* App */,
 				6CBFD1001D787D3600408561 /* Leap Motion */,
 				6CE573C51D77645C0093D60F /* painting_surface.glsl */,
 				6CE573561D761A630093D60F /* GameView.swift */,
+				6CE573BF1D774B520093D60F /* LeapMotionManager.swift */,
 				6CE573581D761A630093D60F /* GameViewController.swift */,
+				6CBFD1251D78B0A400408561 /* Leap Gestures */,
 			);
 			path = ProjectorPrototype;
 			sourceTree = "<group>";
@@ -198,7 +301,6 @@
 				6CE573B41D774B0A0093D60F /* LeapMath.h */,
 				6CE573B51D774B0A0093D60F /* LeapObjectiveC.h */,
 				6CE573B61D774B0A0093D60F /* LeapObjectiveC.mm */,
-				6CE5738D1D7660320093D60F /* ProjectorPrototype-Bridging-Header.h */,
 			);
 			name = SDK;
 			sourceTree = "<group>";
@@ -206,9 +308,7 @@
 		6CE573BE1D774B450093D60F /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
-				6CE573B91D774B370093D60F /* GameScene.swift */,
 				6CE573C71D777F220093D60F /* CursorScene.swift */,
-				6CE573BA1D774B370093D60F /* GameScene.sks */,
 			);
 			name = SpriteKit;
 			sourceTree = "<group>";
@@ -318,7 +418,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE573BC1D774B370093D60F /* GameScene.sks in Resources */,
+				6CBFD1351D78C21E00408561 /* messyroom.pcf in Resources */,
 				6CE5735D1D761A630093D60F /* Assets.xcassets in Resources */,
 				6CE573C61D77645C0093D60F /* painting_surface.glsl in Resources */,
 				6CE5735B1D761A630093D60F /* art.scnassets in Resources */,
@@ -347,14 +447,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE573BB1D774B370093D60F /* GameScene.swift in Sources */,
+				6CBFD1241D78848500408561 /* LeapSubscriber.m in Sources */,
+				6CBFD1271D78B0C400408561 /* LeapCircleGestureRecognizer.swift in Sources */,
 				6CE573C21D774B520093D60F /* LeapMotionFrameHelper.swift in Sources */,
 				6CE573C81D777F220093D60F /* CursorScene.swift in Sources */,
 				6CE573571D761A630093D60F /* GameView.swift in Sources */,
+				6CBFD12D1D78BD5B00408561 /* Kinect Processing.m in Sources */,
 				6CE573591D761A630093D60F /* GameViewController.swift in Sources */,
+				6CBFD12C1D78BD5B00408561 /* Kinect Controller.m in Sources */,
+				6CBFD1161D78846000408561 /* MotionGestureRecognizer.m in Sources */,
+				6CBFD1181D78846000408561 /* MotionSwipeGestureRecognizer.m in Sources */,
 				6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */,
+				6CBFD1171D78846000408561 /* MotionPanGestureRecognizer.m in Sources */,
+				6CBFD11D1D78846000408561 /* MotionAverages.m in Sources */,
+				6CBFD11B1D78846000408561 /* MotionTapGestureRecognizer.m in Sources */,
+				6CBFD1191D78846000408561 /* MotionRotationGestureRecognizer.m in Sources */,
 				6CE5738B1D763F440093D60F /* SCNExtensions.swift in Sources */,
+				6CBFD11A1D78846000408561 /* MotionPinchGestureRecognizer.m in Sources */,
 				6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */,
+				6CBFD11C1D78846000408561 /* MotionSubscriber.m in Sources */,
+				6CBFD1231D78848500408561 /* LeapCore.m in Sources */,
 				6CE573C11D774B520093D60F /* LeapMotionManager.swift in Sources */,
 				6CE573551D761A630093D60F /* AppDelegate.swift in Sources */,
 			);
@@ -491,11 +603,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = ProjectorPrototype/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectorPrototype",
+					/usr/local/Cellar/libfreenect/0.5.3/lib,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -510,11 +624,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = ProjectorPrototype/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectorPrototype",
+					/usr/local/Cellar/libfreenect/0.5.3/lib,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = brix.ProjectorPrototype;
 				PRODUCT_NAME = "$(TARGET_NAME)";

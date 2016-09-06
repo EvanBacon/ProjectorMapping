@@ -8,17 +8,23 @@
 
 import Foundation
 
-
-
-
 protocol LeapMotionManagerDelegate {
     func leapMotionManagerDidUpdateFrame(frame: LeapFrame)
+    
+    func rotateGesture(gesture:LeapCircleGesture) //Turning Door knob
+    func swipeGesture(gesture:LeapSwipeGesture) //fast movement
+    func keyTapGesture(gesture:LeapKeyTapGesture) // downward tap
+    func screenTapGesture(gesture:LeapScreenTapGesture) //forward tap
+
+//    func pinchGesture(gesture:LeapScreenTapGesture) // could be grab
+//    func approveGesture(gesture:LeapScreenTapGesture) // Thumbs Up or thumbs down
+//    func panGesture(gesture:LeapScreenTapGesture) //General Movement
+    
 }
 
 class LeapMotionManager: NSObject, LeapDelegate {
     
     static let sharedInstance = LeapMotionManager()
-    
     
     private var listeners:[LeapMotionManagerDelegate] = []
     
@@ -50,6 +56,8 @@ class LeapMotionManager: NSObject, LeapDelegate {
         controller.enableGesture(LEAP_GESTURE_TYPE_KEY_TAP, enable: true)
         controller.enableGesture(LEAP_GESTURE_TYPE_SCREEN_TAP, enable: true)
         controller.enableGesture(LEAP_GESTURE_TYPE_SWIPE, enable: true)
+        
+        
     }
     
     func onDisconnect(controller: LeapController!) {
@@ -71,9 +79,15 @@ class LeapMotionManager: NSObject, LeapDelegate {
     func onFrame(controller: LeapController!) {
         currentFrame = controller.frame(0) as LeapFrame
         
+        if let gestures = currentFrame?.gestures(nil) as? [LeapGesture] {
+            parseGestures(gestures)
+        }
+        
+        
         for listener in listeners {
             listener.leapMotionManagerDidUpdateFrame(currentFrame!)
         }
+        
         let hands = currentFrame!.hands as! [LeapHand]
         for hand in hands {
             if hand.isLeft {
@@ -87,10 +101,148 @@ class LeapMotionManager: NSObject, LeapDelegate {
             for finger in hand.fingers {
                 if let finger = finger as? LeapFinger {
 //                    finger.direction
-                    
                 }
             }
         }
+    }
+    
+    func parseGestures(gestures:[LeapGesture]) {
+        for gesture in gestures {
+            parseGesture(gesture)
+        }
+    }
+    
+    func parseGesture(gesture:LeapGesture) {
+        switch gesture.type {
+        case LEAP_GESTURE_TYPE_CIRCLE:
+            parseCircleGesture(gesture as! LeapCircleGesture)
+            break;
+        case LEAP_GESTURE_TYPE_SWIPE:
+            parseSwipeGesture(gesture as! LeapSwipeGesture)
+            break;
+        case LEAP_GESTURE_TYPE_SCREEN_TAP:
+            parseScreenTapGesture(gesture as! LeapScreenTapGesture)
+            break;
+        case LEAP_GESTURE_TYPE_KEY_TAP:
+            parseKeyTapGesture(gesture as! LeapKeyTapGesture)
+            break;
+        default:
+            break
+        }
+    }
+    
+    func parseCircleGesture(gesture:LeapCircleGesture) {
+        for listener in listeners {
+            listener.rotateGesture(gesture)
+        }
+//        var direction:String!
+//        
+//        if gesture.pointable.direction.angleTo(gesture.normal) <= LEAP_PI/4 {
+//            direction = "clockwise"
+//        } else {
+//            direction = "counter-clockwise"
+//        }
+//        
+//        var id = gesture.id
+//        
+//        var sweptAngle:Float = 0
+//        if var previousUpdate = controller.frame(1).gesture(id) as? LeapCircleGesture {
+//            sweptAngle = (gesture.progress - previousUpdate.progress) * 2 * LEAP_PI
+//        }
+//        
+//        var type:String = ""
+//        var progress = gesture.progress
+//        var radius = gesture.radius
+//        var angle = sweptAngle * LEAP_RAD_TO_DEG
+//        
+//        
+//        switch gesture.state {
+//        case LEAP_GESTURE_STATE_START:
+//            break
+//        case LEAP_GESTURE_STATE_UPDATE:
+//            break
+//        case LEAP_GESTURE_STATE_STOP:
+//            break
+//        case LEAP_GESTURE_STATE_INVALID:
+//            break
+//        default:
+//            fatalError("WTF")
+//            break
+//        }
+        
+    }
+    
+    
+    
+    func parseSwipeGesture(gesture:LeapSwipeGesture) {
+        for listener in listeners {
+            listener.swipeGesture(gesture)
+        }
+        
+//        var direction = gesture.direction
+//        var speed = gesture.speed
+//        var position = gesture.position
+//        var id = gesture.id
+//        
+//        switch gesture.state {
+//        case LEAP_GESTURE_STATE_START:
+//            break
+//        case LEAP_GESTURE_STATE_UPDATE:
+//            break
+//        case LEAP_GESTURE_STATE_STOP:
+//            break
+//        case LEAP_GESTURE_STATE_INVALID:
+//            break
+//        default:
+//            fatalError("WTF")
+//            break
+//        }
+    }
+
+    func parseKeyTapGesture(gesture:LeapKeyTapGesture) {
+        for listener in listeners {
+            listener.keyTapGesture(gesture)
+        }
+//        var direction = gesture.direction
+//        var position = gesture.position
+//        var id = gesture.id
+//        
+//        switch gesture.state {
+//        case LEAP_GESTURE_STATE_START:
+//            break
+//        case LEAP_GESTURE_STATE_UPDATE:
+//            break
+//        case LEAP_GESTURE_STATE_STOP:
+//            break
+//        case LEAP_GESTURE_STATE_INVALID:
+//            break
+//        default:
+//            fatalError("WTF")
+//            break
+//        }
+    }
+    
+    func parseScreenTapGesture(gesture:LeapScreenTapGesture) {
+        for listener in listeners {
+            listener.screenTapGesture(gesture)
+        }
+//        var direction = gesture.direction
+//        var position = gesture.position
+//        var id = gesture.id
+//        
+//        switch gesture.state {
+//        case LEAP_GESTURE_STATE_START:
+//            break
+//        case LEAP_GESTURE_STATE_UPDATE:
+//            break
+//        case LEAP_GESTURE_STATE_STOP:
+//            break
+//        case LEAP_GESTURE_STATE_INVALID:
+//            break
+//        default:
+//            fatalError("WTF")
+//            break
+//        }
     }
     
     func onFocusGained(controller: LeapController!) {
@@ -101,4 +253,35 @@ class LeapMotionManager: NSObject, LeapDelegate {
         print("focus lost")
     }
     
+    }
+
+extension LeapVector {
+    var direction2D:LeapGestureDirection! {
+        get {
+        let x = self.x
+        let y = self.y
+        if x > 0 { //right
+            if y > 0 { // up
+                return abs(x) > abs(y) ? .Right : .Up
+            } else { // down
+                return abs(x) > abs(y) ? .Right : .Down
+            }
+        } else { //left
+            if y > 0 { // up
+                return abs(x) > abs(y) ? .Left : .Up
+            } else { // down
+                return abs(x) > abs(y) ? .Left : .Down
+            }
+        }
+        }
+    }
+
 }
+enum LeapGestureDirection: Int {
+    case Invalid = -1
+    case Left = 1
+    case Right = 4
+    case Up = 5
+    case Down = 6
+}
+

@@ -10,17 +10,19 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+ 
     
-
     @IBOutlet weak var window: NSWindow!
     
+    
+    func application(sender: NSApplication, openFiles filenames: [String]) {
+        
+    }
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
         
-     
-      
         LeapMotionManager.sharedInstance.run()
-
+        
+        
     }
-    
 }

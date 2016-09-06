@@ -24,7 +24,7 @@ let GRABBING_THRESHOLD:Float = 0.98
 extension LeapHand {
     var pinching:Bool {
         get {
-            return pinchStrength >= PINCH_THRESHOLD && !grabbing
+            return pinchStrength >= PINCH_THRESHOLD
         }
     }
     

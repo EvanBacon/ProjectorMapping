@@ -5,3 +5,4 @@
 //
 
 #import "LeapObjectiveC.h"
+#import "Kinect.h"
