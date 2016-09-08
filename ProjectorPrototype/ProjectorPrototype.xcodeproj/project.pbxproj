@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		6C121DFD1D7F4B7A00AF086F /* Paint.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6C121DFC1D7F4B7A00AF086F /* Paint.sks */; };
 		6C121E001D7F4C2B00AF086F /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C121DFF1D7F4C2B00AF086F /* bokeh.png */; };
+		6CBA2E081D82225A0090E06A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2DFF1D82225A0090E06A /* GameScene.swift */; };
+		6CBA2E091D82225A0090E06A /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E001D82225A0090E06A /* CGPoint+Extensions.swift */; };
+		6CBA2E0A1D82225A0090E06A /* MoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E011D82225A0090E06A /* MoverNode.swift */; };
+		6CBA2E0B1D82225A0090E06A /* NodeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E021D82225A0090E06A /* NodeIndex.swift */; };
+		6CBA2E0C1D82225A0090E06A /* LineMoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E031D82225A0090E06A /* LineMoverNode.swift */; };
+		6CBA2E0D1D82225A0090E06A /* SpriteMoverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E041D82225A0090E06A /* SpriteMoverNode.swift */; };
+		6CBA2E0E1D82225A0090E06A /* GridNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E051D82225A0090E06A /* GridNode.swift */; };
+		6CBA2E101D82225A0090E06A /* LineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBA2E071D82225A0090E06A /* LineNode.swift */; };
 		6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */; };
 		6CBFD1161D78846000408561 /* MotionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1071D78846000408561 /* MotionGestureRecognizer.m */; };
 		6CBFD1171D78846000408561 /* MotionPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1091D78846000408561 /* MotionPanGestureRecognizer.m */; };
@@ -76,6 +84,14 @@
 /* Begin PBXFileReference section */
 		6C121DFC1D7F4B7A00AF086F /* Paint.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Paint.sks; sourceTree = "<group>"; };
 		6C121DFF1D7F4C2B00AF086F /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
+		6CBA2DFF1D82225A0090E06A /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		6CBA2E001D82225A0090E06A /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		6CBA2E011D82225A0090E06A /* MoverNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoverNode.swift; sourceTree = "<group>"; };
+		6CBA2E021D82225A0090E06A /* NodeIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeIndex.swift; sourceTree = "<group>"; };
+		6CBA2E031D82225A0090E06A /* LineMoverNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineMoverNode.swift; sourceTree = "<group>"; };
+		6CBA2E041D82225A0090E06A /* SpriteMoverNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteMoverNode.swift; sourceTree = "<group>"; };
+		6CBA2E051D82225A0090E06A /* GridNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridNode.swift; sourceTree = "<group>"; };
+		6CBA2E071D82225A0090E06A /* LineNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineNode.swift; sourceTree = "<group>"; };
 		6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Bacon.swift"; sourceTree = "<group>"; };
 		6CBFD1051D78846000408561 /* MotionGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestures.h; sourceTree = "<group>"; };
 		6CBFD1061D78846000408561 /* MotionGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestureRecognizer.h; sourceTree = "<group>"; };
@@ -160,6 +176,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6CBA2E111D82225F0090E06A /* Vector */ = {
+			isa = PBXGroup;
+			children = (
+				6CBA2DFF1D82225A0090E06A /* GameScene.swift */,
+				6CBA2E001D82225A0090E06A /* CGPoint+Extensions.swift */,
+				6CBA2E011D82225A0090E06A /* MoverNode.swift */,
+				6CBA2E021D82225A0090E06A /* NodeIndex.swift */,
+				6CBA2E031D82225A0090E06A /* LineMoverNode.swift */,
+				6CBA2E041D82225A0090E06A /* SpriteMoverNode.swift */,
+				6CBA2E051D82225A0090E06A /* GridNode.swift */,
+				6CBA2E071D82225A0090E06A /* LineNode.swift */,
+			);
+			name = Vector;
+			sourceTree = "<group>";
+		};
 		6CBFD1001D787D3600408561 /* Leap Motion */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +345,7 @@
 		6CE573BE1D774B450093D60F /* SpriteKit */ = {
 			isa = PBXGroup;
 			children = (
+				6CBA2E111D82225F0090E06A /* Vector */,
 				6CE573C71D777F220093D60F /* CursorScene.swift */,
 			);
 			name = SpriteKit;
@@ -465,15 +497,23 @@
 				6CBFD12C1D78BD5B00408561 /* Kinect Controller.m in Sources */,
 				6CBFD1161D78846000408561 /* MotionGestureRecognizer.m in Sources */,
 				6CBFD1181D78846000408561 /* MotionSwipeGestureRecognizer.m in Sources */,
+				6CBA2E091D82225A0090E06A /* CGPoint+Extensions.swift in Sources */,
 				6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */,
+				6CBA2E0C1D82225A0090E06A /* LineMoverNode.swift in Sources */,
+				6CBA2E101D82225A0090E06A /* LineNode.swift in Sources */,
 				6CBFD1171D78846000408561 /* MotionPanGestureRecognizer.m in Sources */,
+				6CBA2E0A1D82225A0090E06A /* MoverNode.swift in Sources */,
 				6CBFD11D1D78846000408561 /* MotionAverages.m in Sources */,
 				6CBFD11B1D78846000408561 /* MotionTapGestureRecognizer.m in Sources */,
 				6CBFD1191D78846000408561 /* MotionRotationGestureRecognizer.m in Sources */,
+				6CBA2E0D1D82225A0090E06A /* SpriteMoverNode.swift in Sources */,
 				6CE5738B1D763F440093D60F /* SCNExtensions.swift in Sources */,
 				6CBFD11A1D78846000408561 /* MotionPinchGestureRecognizer.m in Sources */,
+				6CBA2E081D82225A0090E06A /* GameScene.swift in Sources */,
+				6CBA2E0E1D82225A0090E06A /* GridNode.swift in Sources */,
 				6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */,
 				6CBFD11C1D78846000408561 /* MotionSubscriber.m in Sources */,
+				6CBA2E0B1D82225A0090E06A /* NodeIndex.swift in Sources */,
 				6CBFD1231D78848500408561 /* LeapCore.m in Sources */,
 				6CE573C11D774B520093D60F /* LeapMotionManager.swift in Sources */,
 				6CE573551D761A630093D60F /* AppDelegate.swift in Sources */,

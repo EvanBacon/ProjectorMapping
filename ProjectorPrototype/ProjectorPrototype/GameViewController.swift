@@ -70,8 +70,9 @@ class GameViewController: NSViewController {
 
 
 
-        let res: CGFloat = 2048
-        texture = SKScene(size: CGSize(width: res, height: res))
+        let res: CGFloat = 1024
+        texture = GameScene(size: CGSize(width: res, height: res))
+        texture.scaleMode = .AspectFill
         texture.backgroundColor = NSColor.whiteColor()
         self.setupParticle()
         // retrieve the ship node
@@ -123,6 +124,8 @@ class GameViewController: NSViewController {
         /* Set the scale mode to scale to fit the window */
         //            skScene.scaleMode = .AspectFill
         //            skScene.size = self.view.frame.size
+
+
 
         self.gameView.overlaySKScene = CursorScene(size: gameView.frame.size)
         self.gameView.overlaySKScene!.hidden = false
@@ -411,13 +414,6 @@ func - (lhs: LeapVector, rhs: LeapVector) -> LeapVector {
     return LeapVector(x: lhs.x - rhs.x, y: lhs.y - rhs.y, z: lhs.z - rhs.z)
 }
 
-func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-}
-
-func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-    return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
-}
 
 
 extension GameViewController: LeapMotionManagerDelegate {
@@ -537,17 +533,22 @@ extension GameViewController {
 
 
     func updatePan(position: CGPoint, velocity: Float, strength: Float) {
-        if let generator = drawing.last {
-            print(velocity/400)
-            generator.particleColorSequence = nil
-            generator.particleColorBlendFactor = 1.0
-            
-            generator.particleBirthRate = 100 + CGFloat(400 * strength)
-//            generator.particleScale = CGFloat(strength)
-            generator.particleColor = NSColor(hue: CGFloat(velocity/400), saturation: 1, brightness: 1, alpha: 1)
-            generator.paused = false
-            generator.position = position
+//        if let generator = drawing.last {
+//            print(velocity/400)
+//            generator.particleColorSequence = nil
+//            generator.particleColorBlendFactor = 1.0
+//            
+//            generator.particleBirthRate = 100 + CGFloat(400 * strength)
+////            generator.particleScale = CGFloat(strength)
+//            generator.particleColor = NSColor(hue: CGFloat(velocity/400), saturation: 1, brightness: 1, alpha: 1)
+//            generator.paused = false
+//            generator.position = position
+//        }
+        
+        if let scene = texture as? GameScene {
+            scene.fakeTouch(position)
         }
+        
         //        let position = (hand.index?.tipPosition.toPoint())!
 //        let intent = LeapDrawingIntent(strength: velocity, position: position, color: NSColor.greenColor())
 //        drawing[drawing.count - 1].append(intent)

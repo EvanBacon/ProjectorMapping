@@ -79,13 +79,17 @@ class GameView: SCNView {
 //                    emoji.fontSize = CGFloat(drand48() * 100) + 24
 
                     
+                    if let scene = scene as? GameScene {
+                        scene.fakeTouch(hit)
+                    } else {
                     let tex = SKTexture(imageNamed: "obi")
                     let emoji = SKSpriteNode(texture: tex)
-                    emoji.zRotation = CGFloat(M_PI)
+                    
                     
 //                    emoji.zRotation = CGFloat(drand48() * M_PI)
                     emoji.position = hit
                     scene.addChild(emoji)
+                    }
 //                    self.layer?.backgroundColor = color.CGColor
                 }
                 
