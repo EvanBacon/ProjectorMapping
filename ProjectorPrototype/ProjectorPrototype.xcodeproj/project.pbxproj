@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C121DFD1D7F4B7A00AF086F /* Paint.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6C121DFC1D7F4B7A00AF086F /* Paint.sks */; };
+		6C121E001D7F4C2B00AF086F /* bokeh.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C121DFF1D7F4C2B00AF086F /* bokeh.png */; };
 		6CBFD1031D787F3500408561 /* NSColor+Bacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */; };
 		6CBFD1161D78846000408561 /* MotionGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1071D78846000408561 /* MotionGestureRecognizer.m */; };
 		6CBFD1171D78846000408561 /* MotionPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CBFD1091D78846000408561 /* MotionPanGestureRecognizer.m */; };
@@ -72,6 +74,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C121DFC1D7F4B7A00AF086F /* Paint.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Paint.sks; sourceTree = "<group>"; };
+		6C121DFF1D7F4C2B00AF086F /* bokeh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bokeh.png; sourceTree = "<group>"; };
 		6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Bacon.swift"; sourceTree = "<group>"; };
 		6CBFD1051D78846000408561 /* MotionGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestures.h; sourceTree = "<group>"; };
 		6CBFD1061D78846000408561 /* MotionGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionGestureRecognizer.h; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 				6CE573541D761A630093D60F /* AppDelegate.swift */,
 				6CE5735A1D761A630093D60F /* art.scnassets */,
 				6CE5735C1D761A630093D60F /* Assets.xcassets */,
+				6C121DFF1D7F4C2B00AF086F /* bokeh.png */,
 				6CE5735E1D761A630093D60F /* MainMenu.xib */,
 				6CE573611D761A630093D60F /* Info.plist */,
 			);
@@ -260,6 +265,7 @@
 		6CE573531D761A630093D60F /* ProjectorPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				6C121DFC1D7F4B7A00AF086F /* Paint.sks */,
 				6CBFD12E1D78BD5E00408561 /* Kinect */,
 				6CBFD1021D787F3500408561 /* NSColor+Bacon.swift */,
 				6CBFD1041D78845300408561 /* Motion Gestures */,
@@ -418,9 +424,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C121DFD1D7F4B7A00AF086F /* Paint.sks in Resources */,
 				6CBFD1351D78C21E00408561 /* messyroom.pcf in Resources */,
 				6CE5735D1D761A630093D60F /* Assets.xcassets in Resources */,
 				6CE573C61D77645C0093D60F /* painting_surface.glsl in Resources */,
+				6C121E001D7F4C2B00AF086F /* bokeh.png in Resources */,
 				6CE5735B1D761A630093D60F /* art.scnassets in Resources */,
 				6CE573601D761A630093D60F /* MainMenu.xib in Resources */,
 			);
