@@ -4,8 +4,8 @@
   <contributor>
    <authoring_tool>SceneKit Collada Exporter v1.0</authoring_tool>
   </contributor>
-  <created>2016-09-06T20:28:44Z</created>
-  <modified>2016-09-06T20:28:44Z</modified>
+  <created>2016-09-09T19:39:16Z</created>
+  <modified>2016-09-09T19:39:16Z</modified>
   <unit meter="1.000000"/>
   <up_axis>Z_UP</up_axis>
  </asset>
@@ -96,7 +96,7 @@
  <library_visual_scenes>
   <visual_scene id="scene5">
    <node id="Cube" name="Cube">
-    <matrix>1 -0 0 -0.07543278 0 -1.192093e-07 1 -4.123947 -0 -1 -1.192093e-07 4.216237 0 0 0 1 </matrix>
+    <matrix>-0.9999999 -1.504816e-07 -6.305876e-08 3.834597e-07 6.305875e-08 1.192093e-07 -1 5.110828 1.504816e-07 -1 1.192093e-07 4.386268 0 0 0 1 </matrix>
     <instance_geometry url="#Cube_001-mesh">
      <bind_material>
       <technique_common>

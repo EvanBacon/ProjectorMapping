@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class VectorScene: SKScene {
     
     let autoReset = false
     let useVectors = false
@@ -35,7 +35,7 @@ class GameScene: SKScene {
 //    }
 }
 
-extension GameScene {
+extension VectorScene {
     func buildField() {
         nodes = Array(count: gridSize, repeatedValue: Array(count: gridSize, repeatedValue: nil))
         
@@ -68,7 +68,7 @@ extension GameScene {
     
 }
 
-extension GameScene {
+extension VectorScene {
     
     override func mouseDown(theEvent: NSEvent) {
         touchPoint = theEvent.locationInNode(self)
@@ -88,7 +88,7 @@ extension GameScene {
     
 }
 
-extension GameScene {
+extension VectorScene {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         if let location = touchPoint {
@@ -125,7 +125,7 @@ extension GameScene {
         }
     }
 }
-extension GameScene {
+extension VectorScene {
     
     
     func updateCursor(point:CGPoint) {

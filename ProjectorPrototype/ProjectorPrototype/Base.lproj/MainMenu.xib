@@ -3,8 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="10117"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -658,24 +657,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <sceneView autoenablesDefaultLighting="YES" translatesAutoresizingMaskIntoConstraints="NO" id="536" customClass="GameView" customModule="ProjectorPrototype" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </sceneView>
-                    <sceneView autoenablesDefaultLighting="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bAu-QR-5kf" customClass="GameView" customModule="ProjectorPrototype" customModuleProvider="target">
-                        <rect key="frame" x="320" y="0.0" width="320" height="480"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </sceneView>
+                    <stackView canDrawConcurrently="YES" distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDZ-uR-FaA">
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="480"/>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="536" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="541"/>
-                    <constraint firstItem="536" firstAttribute="top" secondItem="372" secondAttribute="top" id="542"/>
-                    <constraint firstItem="536" firstAttribute="bottom" secondItem="372" secondAttribute="bottom" id="543"/>
-                    <constraint firstItem="bAu-QR-5kf" firstAttribute="leading" secondItem="536" secondAttribute="trailing" id="5UH-Um-h7x"/>
-                    <constraint firstItem="536" firstAttribute="width" secondItem="372" secondAttribute="width" multiplier="0.5" id="7pj-ia-Rh5"/>
-                    <constraint firstAttribute="bottom" secondItem="bAu-QR-5kf" secondAttribute="bottom" id="IvY-Yh-dJf"/>
-                    <constraint firstAttribute="trailing" secondItem="bAu-QR-5kf" secondAttribute="trailing" id="m0s-bF-bTk"/>
-                    <constraint firstItem="bAu-QR-5kf" firstAttribute="top" secondItem="372" secondAttribute="top" id="nZP-Pb-pZn"/>
+                    <constraint firstItem="KDZ-uR-FaA" firstAttribute="top" secondItem="372" secondAttribute="top" id="Ide-gi-tnI"/>
+                    <constraint firstItem="KDZ-uR-FaA" firstAttribute="leading" secondItem="372" secondAttribute="leading" id="NGJ-Ba-t2T"/>
+                    <constraint firstAttribute="bottom" secondItem="KDZ-uR-FaA" secondAttribute="bottom" id="b3q-ax-5LD"/>
+                    <constraint firstAttribute="trailing" secondItem="KDZ-uR-FaA" secondAttribute="trailing" id="uEL-WJ-GhZ"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="385" y="452"/>
@@ -688,8 +678,7 @@
         <customObject id="420" customClass="NSFontManager"/>
         <viewController id="z44-Lp-cgU" customClass="GameViewController" customModule="ProjectorPrototype" customModuleProvider="target">
             <connections>
-                <outlet property="altView" destination="bAu-QR-5kf" id="iup-EK-OrC"/>
-                <outlet property="gameView" destination="536" id="No3-Ct-Xwn"/>
+                <outlet property="containerView" destination="KDZ-uR-FaA" id="WPJ-Z6-E1V"/>
                 <outlet property="view" destination="372" id="bTQ-MN-Ejh"/>
             </connections>
         </viewController>

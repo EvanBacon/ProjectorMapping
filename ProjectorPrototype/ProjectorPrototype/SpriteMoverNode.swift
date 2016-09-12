@@ -13,9 +13,9 @@ class SpriteMoverNode:MoverNode {
     
     override init() {
         super.init()
-        node = SKSpriteNode(imageNamed: "circle")
-        node.colorBlendFactor = 1
-        node.color = NSColor().randomBrightColor()
+        node = SKSpriteNode(imageNamed: "snowflake")
+//        node.colorBlendFactor = 1
+//        node.color = NSColor().randomBrightColor()
         node.size = CGSize(width: nodeSize, height: nodeSize)
         self.addChild(node)
     }

@@ -20,7 +20,7 @@ class GameView: SCNView {
     }
     
     override func mouseDown(theEvent: NSEvent) {
-        
+        super.mouseDown(theEvent)
         /* Called when a mouse click occurs */
         
         // check what nodes are clicked
@@ -79,7 +79,7 @@ class GameView: SCNView {
 //                    emoji.fontSize = CGFloat(drand48() * 100) + 24
 
                     
-                    if let scene = scene as? GameScene {
+                    if let scene = scene as? VectorScene {
                         scene.fakeTouch(hit)
                     } else {
                     let tex = SKTexture(imageNamed: "obi")
@@ -95,8 +95,6 @@ class GameView: SCNView {
                 
             }
         }
-        
-        super.mouseDown(theEvent)
     }
 }
 
