@@ -47,7 +47,7 @@ extension SCNNode {
     
     
     func resetTransforms() {
-        self.rotation = SCNVector4(1,0,0,M_PI)
+        self.rotation = SCNVector4(0,1,0,M_PI)
         self.scale = SCNVector3(1,1,1)
         self.position = SCNVector3()
     }
@@ -90,7 +90,7 @@ extension SCNLight {
     }
     func defaultAmbient() -> SCNLight {
         type = SCNLightTypeAmbient
-        color = NSColor.darkGrayColor()
+        color = NSColor.grayColor()
         return self
     }
 }

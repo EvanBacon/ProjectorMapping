@@ -28,6 +28,13 @@ extension LeapHand {
         }
     }
     
+    var pastCenter:Bool {
+        get {
+            return palmPosition.z < 0
+        }
+    }
+
+    
     var grabbing:Bool {
         get {
             return grabStrength >= GRABBING_THRESHOLD

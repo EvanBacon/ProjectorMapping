@@ -18,6 +18,8 @@ class GameViewController: NSViewController {
     @IBOutlet var containerView: NSStackView!
     let imageView = SKView()
 
+    
+    
     var startingPoint = CGPoint.zero
     var isGrabbing: Bool = false
     var isDrawing: Bool = false
@@ -59,23 +61,58 @@ extension NSView {
     }
 }
 
+
 extension GameViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    
+ 
+    @IBAction func rotateZ(sender: AnyObject) {
+        mesh.eulerAngles.z += CGFloat(M_PI_2)
+    }
+    
+    @IBAction func rotateX(sender: AnyObject) {
+        mesh.eulerAngles.x += CGFloat(M_PI_2)
+    }
+    @IBAction func rotateY(sender: AnyObject) {
+        mesh.eulerAngles.y += CGFloat(M_PI_2)
+    }
+    @IBAction func loadCube(sender: AnyObject) {
         // create a new scene
         let scene = buildScene()
         
+        setupMesh(scene, name: "cube")
+        
+        setupSceneViews(scene)
+    }
+    @IBAction func loadGown(sender: AnyObject) {
+        // create a new scene
+        let scene = buildScene("art.scnassets/untitled.dae")
+
+        setupMesh(scene)
+        
+        setupSceneViews(scene)
+    }
+    @IBAction func loadSphere(sender: AnyObject) {
+        // create a new scene
+        let scene = buildScene()
+        setupMesh(scene, name: "sphere")
+        
+        setupSceneViews(scene)
+    }
+}
+
+extension GameViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+        // create a new scene
+        let scene = buildScene("art.scnassets/untitled.dae")
+        
         
         let res: CGFloat = 1024
-        texture = VectorScene(size: CGSize(width: res, height: res))
+        texture = VelocityScene(size: CGSize(width: res, height: res))
         texture.scaleMode = .AspectFit
         texture.backgroundColor = NSColor.whiteColor()
-    
-        
-        
-//        let scene = buildScene()
-        
         setupMesh(scene)
         
         setupSceneViews(scene)
@@ -86,8 +123,14 @@ extension GameViewController {
         
         imageView.frame = CGRect(x: 0,y: 0,width: 100,height: 100)
 //        imageView.image = texture
+        
 //        imageView.presentScene(texture)
+        
         self.view.addSubview(imageView)
+    }
+    
+    func setAll() {
+        
     }
 }
 
@@ -109,13 +152,16 @@ extension GameViewController {
 //        cameraNode.camera?.xFov = largestSide
 //        cameraNode.camera?.automaticallyAdjustsZRange = true
         cameraNode.camera?.orthographicScale = largestSide / 2
-        let lookAt = SCNLookAtConstraint(target:mesh)
+//        let lookAt = SCNLookAtConstraint(target:mesh)
 ////        lookAt.gimbalLockEnabled = true
 //        cameraNode.constraints = [lookAt]
         return cameraNode
     }
     
     private func setupSceneViews(scene:SCNScene) {
+        for child in containerView.subviews {
+            child.removeFromSuperview()
+        }
         gameView = addView(scene, angle: 0)
         self.containerView.addArrangedSubview(gameView)
 
@@ -131,6 +177,13 @@ extension GameViewController {
             if let node = scene.rootNode.childNodeWithName(name, recursively: true) {
                 mesh = node
             } else {
+                if name == "cube" {
+                    mesh = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0))
+
+                } else if name == "sphere" {
+                    mesh = SCNNode(geometry: SCNSphere(radius: 1))
+ 
+                }
                 /// Dope debuging
                 let names = scene.rootNode.childNodes.map({
                     node in
@@ -151,17 +204,17 @@ extension GameViewController {
         let scene = SCNScene(withName: named)
         
     
-//        // create and add a light to the scene
-//        let lightNode = SCNNode()
-//        lightNode.light = SCNLight().defaultOmni()
-//        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-//        scene.rootNode.addChildNode(lightNode)
-//        
-//        // create and add an ambient light to the scene
-//        let ambientLightNode = SCNNode()
-//        ambientLightNode.light = SCNLight().defaultAmbient()
-//        scene.rootNode.addChildNode(ambientLightNode)
-//        
+        // create and add a light to the scene
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight().defaultOmni()
+        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+        scene.rootNode.addChildNode(lightNode)
+        
+//         create and add an ambient light to the scene
+        let ambientLightNode = SCNNode()
+        ambientLightNode.light = SCNLight().defaultAmbient()
+        scene.rootNode.addChildNode(ambientLightNode)
+//
         
         return scene
     }
@@ -173,8 +226,8 @@ extension GameViewController {
         return m
         
     }
-    private func setupMesh(scene:SCNScene) {
-        mesh = buildMesh(scene, named: "Cube")
+    private func setupMesh(scene:SCNScene, name:String="Cube") {
+        mesh = buildMesh(scene, named: name)
         mesh.geometry?.firstMaterial?.diffuse.contents = texture
 //        self.mesh.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 3)))
 
@@ -205,7 +258,7 @@ extension GameViewController {
         gameView.overlaySKScene = CursorScene(size: gameView.frame.size)
         gameView.overlaySKScene!.hidden = false
         gameView.overlaySKScene!.scaleMode = .AspectFill
-        gameView.autoenablesDefaultLighting = true
+//        gameView.autoenablesDefaultLighting = true
         
         scene.rootNode.addChildNode(camera)
         gameView.pointOfView = camera
@@ -328,45 +381,28 @@ extension GameViewController: LeapMotionManagerDelegate {
             if hands.count <= 0 {
                 return
             }
-            for hand in hands {
-
-//                if hand.grabbing {
-//                    if !isGrabbing {
-//                        startingPoint = adjustedPoint(hand.palmPosition)
-//                        
-//                       
-//
-//                    } else {
-//                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint)
-//                    }
-//                    //                    print( hand.palmPosition - startingPoint )
-//
-//
-//                } else {
-//                    if isGrabbing {
-//                        updateDrag(adjustedPoint( hand.palmPosition) - startingPoint, end: true)
-//                        startingPoint = CGPoint.zero
-//                    }
-//                }
-
-//                if hand.pinching {
-               
-//                    if !isDrawing {
-//                        if let generator = drawing.last {
-//                            texture.addChild(generator)
-//                        }
-//                    }
+            
+            if hands.count > 0 {
                 
-                    addDrawing(hand)
-//                } else {
-//                    if isDrawing {
-//                        //End Line
-//                        endDrawing()
-//                    }
-//                }
-                isGrabbing = hand.grabbing
-                isDrawing = hand.pinching
-                break
+                if let scene = texture as? VelocityScene {
+                    scene.paused = (hands.count != 1)
+                }
+    
+                
+                if let hand = hands.first {
+                    
+                    if hand.pastCenter {
+                        addDrawing(hand)
+                    } else {
+                        endDrawing()
+                        
+                    }
+                    print(hand.palmPosition)
+                    
+                    isGrabbing = hand.grabbing
+                    isDrawing = hand.pinching
+  
+                }
             }
         }
     }
@@ -402,11 +438,9 @@ extension GameViewController: LeapMotionManagerDelegate {
     }
 
     func keyTapGesture(gesture: LeapKeyTapGesture) {
-
     }
 
     func screenTapGesture(gesture: LeapScreenTapGesture) {
-
     }
 
 }
@@ -418,19 +452,36 @@ extension GameViewController {
     }
 
     func endDrawing() {
-        if let generator = drawing.last {
-            generator.paused = true
+        //// Touch up
+        
+        if let scene = texture as? VelocityScene {
+            scene.touchPoint = nil
         }
+        
+//        if let generator = drawing.last {
+//            generator.paused = true
+//        }
+//
+//        let generator = self.generator()
+//
+//        drawing.append(generator)
 
-        let generator = self.generator()
-
-        drawing.append(generator)
+        
+        
+        
 //        drawing.append([])
     }
 
     func addDrawing(hand: LeapHand) {
         let p = adjustedPoint(hand.palmPosition)
-        guard let position = mappedPoint(p) else { return }
+        guard let position = mappedPoint(p) else {
+            
+       
+            endDrawing()
+            
+            return
+        
+        }
         let strength = hand.palmVelocity.magnitude
 
         updatePan(position, velocity: strength, strength: hand.grabStrength)
@@ -474,9 +525,15 @@ extension GameViewController {
 //            generator.position = position
 //        }
         
-        if let scene = texture as? VectorScene {
+//        if let scene = texture as? VectorScene {
+//            scene.fakeTouch(position)
+//        }
+        
+        if let scene = texture as? VelocityScene {
             scene.fakeTouch(position)
         }
+        
+        
         
         //        let position = (hand.index?.tipPosition.toPoint())!
 //        let intent = LeapDrawingIntent(strength: velocity, position: position, color: NSColor.greenColor())

@@ -19,10 +19,8 @@ extension CursorScene: LeapMotionManagerDelegate {
             }
             for hand in hands {
                 leftHand.position = adjustedPoint(hand.palmPosition)
-                if hand.pinching {
+                if hand.pastCenter {
                     leftHand.fillColor = NSColor.greenColor()
-                } else if hand.grabbing {
-                    leftHand.fillColor = NSColor.yellowColor()
                 } else {
                     leftHand.fillColor = NSColor.redColor()
                 }

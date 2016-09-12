@@ -330,6 +330,77 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Model" id="jMn-OP-VdU">
+                    <menu key="submenu" title="Model" id="A1F-Hy-Ujb">
+                        <items>
+                            <menuItem title="Cube" keyEquivalent="1" id="KlP-83-sSS" userLabel="Cube">
+                                <connections>
+                                    <action selector="loadCube:" target="z44-Lp-cgU" id="IKZ-eW-4DF"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Gown" keyEquivalent="2" id="I0F-bm-i8g">
+                                <connections>
+                                    <action selector="loadGown:" target="z44-Lp-cgU" id="YPX-bO-mdc"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sphere" keyEquivalent="3" id="AaW-Zj-Q2Y">
+                                <connections>
+                                    <action selector="loadSphere:" target="z44-Lp-cgU" id="ecI-nt-j0X"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="x2E-3F-CWM">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Rotate X" keyEquivalent="X" id="FtI-gE-ocC">
+                                <connections>
+                                    <action selector="rotateX:" target="z44-Lp-cgU" id="CMg-Ov-HUJ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate Y" keyEquivalent="Y" id="jYB-GK-JMX">
+                                <connections>
+                                    <action selector="rotateY:" target="z44-Lp-cgU" id="Fmq-cU-07a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Rotate Z" keyEquivalent="Z" id="Tth-Oq-BhP">
+                                <connections>
+                                    <action selector="rotateZ:" target="z44-Lp-cgU" id="Y8r-gU-Qip"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="bMB-Fu-3m0">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Close" keyEquivalent="w" id="qzd-Nl-htq">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="Yu5-ng-kui"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save…" keyEquivalent="s" id="OPq-3L-b40">
+                                <connections>
+                                    <action selector="saveDocument:" target="-1" id="OfX-k0-Oh3"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Revert to Saved" keyEquivalent="r" id="VwG-sx-98M">
+                                <connections>
+                                    <action selector="revertDocumentToSaved:" target="-1" id="XRk-cN-Ubs"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="8gT-sz-wk4">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Page Setup..." keyEquivalent="P" id="VE2-j5-bqN">
+                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
+                                <connections>
+                                    <action selector="runPageLayout:" target="-1" id="rdX-FN-5Ie"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Print…" keyEquivalent="p" id="V5Y-Ib-XOS">
+                                <connections>
+                                    <action selector="print:" target="-1" id="aOr-na-PHn"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Format" id="375">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Format" id="376">
@@ -647,6 +718,19 @@
                 </menuItem>
             </items>
         </menu>
+        <customObject id="494" customClass="AppDelegate" customModule="ProjectorPrototype" customModuleProvider="target">
+            <connections>
+                <outlet property="window" destination="371" id="532"/>
+            </connections>
+        </customObject>
+        <customObject id="420" customClass="NSFontManager"/>
+        <viewController id="z44-Lp-cgU" customClass="GameViewController" customModule="ProjectorPrototype" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="KDZ-uR-FaA" id="WPJ-Z6-E1V"/>
+                <outlet property="loadCube" destination="KlP-83-sSS" id="Xfm-C2-AEk"/>
+                <outlet property="view" destination="372" id="bTQ-MN-Ejh"/>
+            </connections>
+        </viewController>
         <window title="ProjectorPrototype" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
@@ -655,7 +739,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="372">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <stackView canDrawConcurrently="YES" distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDZ-uR-FaA">
                         <rect key="frame" x="0.0" y="0.0" width="1280" height="480"/>
@@ -670,17 +754,5 @@
             </view>
             <point key="canvasLocation" x="385" y="452"/>
         </window>
-        <customObject id="494" customClass="AppDelegate" customModule="ProjectorPrototype" customModuleProvider="target">
-            <connections>
-                <outlet property="window" destination="371" id="532"/>
-            </connections>
-        </customObject>
-        <customObject id="420" customClass="NSFontManager"/>
-        <viewController id="z44-Lp-cgU" customClass="GameViewController" customModule="ProjectorPrototype" customModuleProvider="target">
-            <connections>
-                <outlet property="containerView" destination="KDZ-uR-FaA" id="WPJ-Z6-E1V"/>
-                <outlet property="view" destination="372" id="bTQ-MN-Ejh"/>
-            </connections>
-        </viewController>
     </objects>
 </document>

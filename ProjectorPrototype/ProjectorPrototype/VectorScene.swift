@@ -143,10 +143,3 @@ extension VectorScene {
 }
 
 
-extension CGFloat {
-    func roundToValue(value:CGFloat) -> Int {
-        return Int(value * round(self / value))
-    }
-}
-
-
