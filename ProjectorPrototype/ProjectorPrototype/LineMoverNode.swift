@@ -9,17 +9,17 @@
 import SpriteKit
 
 class LineMoverNode:MoverNode {
-    private var line:SKShapeNode!
+    fileprivate var line:SKShapeNode!
     
     override init() {
         super.init()
         
         line = SKShapeNode()
         line.lineWidth = 10
-        line.lineCap = .Round
-        line.lineJoin = .Miter
-        line.fillColor = SKColor.redColor()
-        line.strokeColor = SKColor.redColor()
+        line.lineCap = .round
+        line.lineJoin = .miter
+        line.fillColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
+        line.strokeColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
         self.addChild(line)
     }
     
@@ -30,10 +30,9 @@ class LineMoverNode:MoverNode {
 
 extension LineMoverNode {
     override func updatePath() {
-        let ref = CGPathCreateMutable()
-        CGPathMoveToPoint(ref, nil, origin.x, origin.y)
-        
-        CGPathAddLineToPoint(ref, nil, endPoint.x , endPoint.y)
+        let ref = CGMutablePath()
+        ref.move(to: origin)
+        ref.addLine(to: endPoint)
         line.path = ref
     }
 }

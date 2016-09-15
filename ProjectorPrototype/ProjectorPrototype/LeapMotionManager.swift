@@ -9,12 +9,12 @@
 import Foundation
 
 protocol LeapMotionManagerDelegate {
-    func leapMotionManagerDidUpdateFrame(frame: LeapFrame)
+    func leapMotionManagerDidUpdateFrame(_ frame: LeapFrame)
     
-    func rotateGesture(gesture:LeapCircleGesture) //Turning Door knob
-    func swipeGesture(gesture:LeapSwipeGesture) //fast movement
-    func keyTapGesture(gesture:LeapKeyTapGesture) // downward tap
-    func screenTapGesture(gesture:LeapScreenTapGesture) //forward tap
+    func rotateGesture(_ gesture:LeapCircleGesture) //Turning Door knob
+    func swipeGesture(_ gesture:LeapSwipeGesture) //fast movement
+    func keyTapGesture(_ gesture:LeapKeyTapGesture) // downward tap
+    func screenTapGesture(_ gesture:LeapScreenTapGesture) //forward tap
 
 //    func pinchGesture(gesture:LeapScreenTapGesture) // could be grab
 //    func approveGesture(gesture:LeapScreenTapGesture) // Thumbs Up or thumbs down
@@ -26,9 +26,9 @@ class LeapMotionManager: NSObject, LeapDelegate {
     
     static let sharedInstance = LeapMotionManager()
     
-    private var listeners:[LeapMotionManagerDelegate] = []
+    fileprivate var listeners:[LeapMotionManagerDelegate] = []
     
-    func addListener(listener:LeapMotionManagerDelegate) {
+    func addListener(_ listener:LeapMotionManagerDelegate) {
         listeners.append(listener)
     }
     //TODO: Add remove listener
@@ -40,43 +40,43 @@ class LeapMotionManager: NSObject, LeapDelegate {
     
     func run() {
         
-        controller.addDelegate(self)
+        controller?.addDelegate(self)
         print("running")
     }
     
     // MARK: - LeapDelegate Methods
     
-    func onInit(controller: LeapController!) {
+    func onInit(_ controller: LeapController!) {
         print("initialized")
     }
     
-    func onConnect(controller: LeapController!) {
+    func onConnect(_ controller: LeapController!) {
         print("connected")
-        controller.enableGesture(LEAP_GESTURE_TYPE_CIRCLE, enable: true)
-        controller.enableGesture(LEAP_GESTURE_TYPE_KEY_TAP, enable: true)
-        controller.enableGesture(LEAP_GESTURE_TYPE_SCREEN_TAP, enable: true)
-        controller.enableGesture(LEAP_GESTURE_TYPE_SWIPE, enable: true)
+        controller.enable(LEAP_GESTURE_TYPE_CIRCLE, enable: true)
+        controller.enable(LEAP_GESTURE_TYPE_KEY_TAP, enable: true)
+        controller.enable(LEAP_GESTURE_TYPE_SCREEN_TAP, enable: true)
+        controller.enable(LEAP_GESTURE_TYPE_SWIPE, enable: true)
         
         
     }
     
-    func onDisconnect(controller: LeapController!) {
+    func onDisconnect(_ controller: LeapController!) {
         print("disconnected")
     }
     
-    func onServiceConnect(controller: LeapController!) {
+    func onServiceConnect(_ controller: LeapController!) {
         print("service disconnected")
     }
     
-    func onDeviceChange(controller: LeapController!) {
+    func onDeviceChange(_ controller: LeapController!) {
         print("device changed")
     }
     
-    func onExit(controller: LeapController!) {
+    func onExit(_ controller: LeapController!) {
         print("exited")
     }
     
-    func onFrame(controller: LeapController!) {
+    func onFrame(_ controller: LeapController!) {
         currentFrame = controller.frame(0) as LeapFrame
         
         if let gestures = currentFrame?.gestures(nil) as? [LeapGesture] {
@@ -99,20 +99,20 @@ class LeapMotionManager: NSObject, LeapDelegate {
             }
             
             for finger in hand.fingers {
-                if let finger = finger as? LeapFinger {
+                if finger is LeapFinger {
 //                    finger.direction
                 }
             }
         }
     }
     
-    func parseGestures(gestures:[LeapGesture]) {
+    func parseGestures(_ gestures:[LeapGesture]) {
         for gesture in gestures {
             parseGesture(gesture)
         }
     }
     
-    func parseGesture(gesture:LeapGesture) {
+    func parseGesture(_ gesture:LeapGesture) {
         switch gesture.type {
         case LEAP_GESTURE_TYPE_CIRCLE:
             parseCircleGesture(gesture as! LeapCircleGesture)
@@ -131,7 +131,7 @@ class LeapMotionManager: NSObject, LeapDelegate {
         }
     }
     
-    func parseCircleGesture(gesture:LeapCircleGesture) {
+    func parseCircleGesture(_ gesture:LeapCircleGesture) {
         for listener in listeners {
             listener.rotateGesture(gesture)
         }
@@ -174,7 +174,7 @@ class LeapMotionManager: NSObject, LeapDelegate {
     
     
     
-    func parseSwipeGesture(gesture:LeapSwipeGesture) {
+    func parseSwipeGesture(_ gesture:LeapSwipeGesture) {
         for listener in listeners {
             listener.swipeGesture(gesture)
         }
@@ -199,7 +199,7 @@ class LeapMotionManager: NSObject, LeapDelegate {
 //        }
     }
 
-    func parseKeyTapGesture(gesture:LeapKeyTapGesture) {
+    func parseKeyTapGesture(_ gesture:LeapKeyTapGesture) {
         for listener in listeners {
             listener.keyTapGesture(gesture)
         }
@@ -222,7 +222,7 @@ class LeapMotionManager: NSObject, LeapDelegate {
 //        }
     }
     
-    func parseScreenTapGesture(gesture:LeapScreenTapGesture) {
+    func parseScreenTapGesture(_ gesture:LeapScreenTapGesture) {
         for listener in listeners {
             listener.screenTapGesture(gesture)
         }
@@ -245,11 +245,11 @@ class LeapMotionManager: NSObject, LeapDelegate {
 //        }
     }
     
-    func onFocusGained(controller: LeapController!) {
+    func onFocusGained(_ controller: LeapController!) {
         print("focus gained")
     }
     
-    func onFocusLost(controller: LeapController!) {
+    func onFocusLost(_ controller: LeapController!) {
         print("focus lost")
     }
     
@@ -262,15 +262,15 @@ extension LeapVector {
         let y = self.y
         if x > 0 { //right
             if y > 0 { // up
-                return abs(x) > abs(y) ? .Right : .Up
+                return abs(x) > abs(y) ? .right : .up
             } else { // down
-                return abs(x) > abs(y) ? .Right : .Down
+                return abs(x) > abs(y) ? .right : .down
             }
         } else { //left
             if y > 0 { // up
-                return abs(x) > abs(y) ? .Left : .Up
+                return abs(x) > abs(y) ? .left : .up
             } else { // down
-                return abs(x) > abs(y) ? .Left : .Down
+                return abs(x) > abs(y) ? .left : .down
             }
         }
         }
@@ -278,10 +278,10 @@ extension LeapVector {
 
 }
 enum LeapGestureDirection: Int {
-    case Invalid = -1
-    case Left = 1
-    case Right = 4
-    case Up = 5
-    case Down = 6
+    case invalid = -1
+    case left = 1
+    case right = 4
+    case up = 5
+    case down = 6
 }
 

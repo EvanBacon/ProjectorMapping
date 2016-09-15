@@ -16,15 +16,15 @@ enum RotatationDirection: String
     case Clockwise = "Clockwise"
 }
 
-public class LeapCircleGestureRecognizer: NSGestureRecognizer
+open class LeapCircleGestureRecognizer: NSGestureRecognizer
 {
-    private var touchPoints: [CGPoint] = [CGPoint]()
-    private var gestureAngle: Float = 0
+    fileprivate var touchPoints: [CGPoint] = [CGPoint]()
+    fileprivate var gestureAngle: Float = 0
     
-    private var rotatationDirection: RotatationDirection!
-    private var currentAngle: Float?
-    private var averagePoint: CGPoint?
-    private var distanceFromAverage: Float?
+    fileprivate var rotatationDirection: RotatationDirection!
+    fileprivate var currentAngle: Float?
+    fileprivate var averagePoint: CGPoint?
+    fileprivate var distanceFromAverage: Float?
     
     var numberOfHands:Int = 1
     var numberOfFingers:Int = 1
@@ -32,7 +32,7 @@ public class LeapCircleGestureRecognizer: NSGestureRecognizer
     
     // MARK: Initialise
     
-    public override init(target:AnyObject, action:Selector)
+    public override init(target:Any, action:Selector?)
     {
         super.init(target: target, action: action)
     }

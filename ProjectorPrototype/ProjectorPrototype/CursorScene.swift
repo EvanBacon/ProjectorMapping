@@ -11,31 +11,31 @@ import SpriteKit
 
 
 extension CursorScene: LeapMotionManagerDelegate {
-    func leapMotionManagerDidUpdateFrame(frame: LeapFrame) {
+    func leapMotionManagerDidUpdateFrame(_ frame: LeapFrame) {
         if let hands = frame.hands as? [LeapHand] {
             if hands.count <= 0 {
-                leftHand.fillColor = NSColor.clearColor()
+                leftHand.fillColor = NSColor.clear
                 return
             }
             for hand in hands {
                 leftHand.position = adjustedPoint(hand.palmPosition)
                 if hand.pastCenter {
-                    leftHand.fillColor = NSColor.greenColor()
+                    leftHand.fillColor = NSColor(red: 1, green: 1, blue: 0, alpha: 1)
                 } else {
-                    leftHand.fillColor = NSColor.redColor()
+                    leftHand.fillColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
                 }
                 break
             }
         }
     }
-    func rotateGesture(gesture: LeapCircleGesture) {
+    func rotateGesture(_ gesture: LeapCircleGesture) {
      
     }
-    func swipeGesture(gesture: LeapSwipeGesture) {
-        var direction = gesture.direction
-        var speed = gesture.speed
-        var position = gesture.position
-        var id = gesture.id
+    func swipeGesture(_ gesture: LeapSwipeGesture) {
+        let direction = gesture.direction
+        let speed = gesture.speed
+        let position = gesture.position
+        let id = gesture.id
         
         
         switch gesture.state {
@@ -52,18 +52,18 @@ extension CursorScene: LeapMotionManagerDelegate {
             break
         }
 
-        print(direction, direction.direction2D, speed, position, id, gesture.state)
+        print(direction, direction?.direction2D, speed, position, id, gesture.state)
     }
-    func keyTapGesture(gesture: LeapKeyTapGesture) {
+    func keyTapGesture(_ gesture: LeapKeyTapGesture) {
         
     }
-    func screenTapGesture(gesture: LeapScreenTapGesture) {
+    func screenTapGesture(_ gesture: LeapScreenTapGesture) {
         
     }
     
     
     
-    func adjustedPoint(point:LeapVector) -> CGPoint {
+    func adjustedPoint(_ point:LeapVector) -> CGPoint {
         
         let appWidth = self.frame.width
         let appHeight = self.frame.height
@@ -72,15 +72,15 @@ extension CursorScene: LeapMotionManagerDelegate {
             let iBox = currentFrame.interactionBox()
             
             
-            let normalizedPoint = iBox.normalizePoint(point, clamp: true).toPoint()
+            let normalizedPoint = iBox?.normalizePoint(point, clamp: true).toPoint()
             
-            let appX = normalizedPoint.x * appWidth
-            let appY = (normalizedPoint.y) * appHeight
+            let appX = (normalizedPoint?.x)! * appWidth
+            let appY = (normalizedPoint?.y)! * appHeight
             //            //The z-coordinate is not used
             //
             return CGPoint(x: appX, y: appY)
         } else {
-            return CGPointZero
+            return CGPoint.zero
         }
     }
 }
@@ -88,14 +88,14 @@ extension CursorScene: LeapMotionManagerDelegate {
 class CursorScene: SKScene {
     var leftHand:SKShapeNode!
     
-    override func didMoveToView(view: SKView) {
-        self.backgroundColor = SKColor.redColor()
+    override func didMove(to view: SKView) {
+        self.backgroundColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
         LeapMotionManager.sharedInstance.addListener(self)
         
         
         leftHand = SKShapeNode(circleOfRadius:80)
-        leftHand.fillColor = NSColor.redColor()
-        leftHand.strokeColor = NSColor.clearColor()
+        leftHand.fillColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
+        leftHand.strokeColor = NSColor.clear
         
         leftHand.xScale = 0.1
         leftHand.yScale = 0.1

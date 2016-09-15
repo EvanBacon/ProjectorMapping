@@ -8,8 +8,8 @@
 
 import SpriteKit
 class SpriteMoverNode:MoverNode {
-    private  var node:SKSpriteNode!
-    private let nodeSize:CGFloat = 20
+    fileprivate  var node:SKSpriteNode!
+    fileprivate let nodeSize:CGFloat = 20
     
     override init() {
         super.init()

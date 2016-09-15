@@ -9,15 +9,14 @@
 import SpriteKit
 
 class LineNode:SKShapeNode {
-    private var ref = CGPathCreateMutable()
+    fileprivate var ref = CGMutablePath()
     
     convenience init(a:CGPoint, b:CGPoint) {
         self.init()
         
-        ref = CGPathCreateMutable()
-        CGPathMoveToPoint(ref, nil, a.x, a.y)
-        
-        CGPathAddLineToPoint(ref, nil, b.x, b.y)
+        ref = CGMutablePath()
+        ref.move(to: a)
+        ref.addLine(to: b)
         self.path = ref
     }
     
@@ -34,9 +33,9 @@ class LineNode:SKShapeNode {
 
 
 extension LineNode {
-    private func buildView() {
+    fileprivate func buildView() {
         lineWidth = 2
-        strokeColor = SKColor.whiteColor()
-        fillColor = SKColor.whiteColor()
+        strokeColor = SKColor.white
+        fillColor = SKColor.white
     }
 }

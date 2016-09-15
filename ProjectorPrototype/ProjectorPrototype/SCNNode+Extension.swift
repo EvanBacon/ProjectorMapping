@@ -15,7 +15,8 @@ extension SCNNode {
     func size() -> SCNVector3 {
         var min = SCNVector3Zero
         var max = SCNVector3Zero
-        getBoundingBoxMin(&min, max: &max)
+        
+        __getBoundingBoxMin(&min, max: &max)
         
         return max - min
     }
@@ -23,7 +24,7 @@ extension SCNNode {
     func min() -> SCNVector3 {
         var min = SCNVector3Zero
         var max = SCNVector3Zero
-        getBoundingBoxMin(&min, max: &max)
+        __getBoundingBoxMin(&min, max: &max)
         max = SCNVector3()
         return min
     }
@@ -33,7 +34,7 @@ extension SCNNode {
         get {
             var minVec = SCNVector3Zero
             var maxVec = SCNVector3Zero
-            if getBoundingBoxMin(&minVec, max: &maxVec) {
+            if __getBoundingBoxMin(&minVec, max: &maxVec) {
                 let bound = SCNVector3(
                     x: minVec.x + ((maxVec.x - minVec.x)/2),
                     y: minVec.y + ((maxVec.y - minVec.y)/2),
@@ -85,12 +86,12 @@ extension SCNScene {
 
 extension SCNLight {
     func defaultOmni() -> SCNLight {
-        type = SCNLightTypeOmni
+        type = SCNLight.LightType.omni
         return self
     }
     func defaultAmbient() -> SCNLight {
-        type = SCNLightTypeAmbient
-        color = NSColor.grayColor()
+        type = SCNLight.LightType.ambient
+        color = NSColor.gray
         return self
     }
 }

@@ -21,7 +21,7 @@ class VelocityFieldNode:SKSpriteNode {
     
       
     convenience init(nodes:Int, size:CGSize, gridSize:CGFloat, radius:CGFloat) {
-        self.init(texture: nil, color: SKColor.blueColor(), size: size)
+        self.init(texture: nil, color: SKColor.black, size: size)
         self.gridSize = gridSize;
         self.setup(nodes, nodeRadius: radius)
         
@@ -39,7 +39,7 @@ class VelocityFieldNode:SKSpriteNode {
 
 extension VelocityFieldNode {
     
-    func setup(nodeCount:Int, nodeRadius:CGFloat) {
+    func setup(_ nodeCount:Int, nodeRadius:CGFloat) {
         let offset = CGPoint(x: -(frame.size.width / 2), y: -(frame.size.height / 2))
         for i in 0..<nodeCount {
             let node = DynamicNode(id: i, origin: CGPoint(x: size.width, y: size.height).random(), radius: nodeRadius)
@@ -51,20 +51,20 @@ extension VelocityFieldNode {
         }
         
         
-        if (size.width % gridSize == 0) {
+        if (size.width.truncatingRemainder(dividingBy: gridSize) == 0) {
             cellSize.width = floor(size.width / gridSize);
         } else {
             cellSize.width = floor(size.width / gridSize) + 1;
         }
         
-        if (size.height % gridSize == 0) {
+        if (size.height.truncatingRemainder(dividingBy: gridSize) == 0) {
             cellSize.height = floor(size.height / gridSize);
         } else {
             cellSize.height = floor(size.height / gridSize) + 1;
         }
         
         
-        cells = Array(count: Int(cellSize.width), repeatedValue: Array(count: Int(cellSize.height), repeatedValue: nil))
+        cells = Array(repeating: Array(repeating: nil, count: Int(cellSize.height)), count: Int(cellSize.width))
         
         for ix in 0..<Int(cellSize.width) {
             for iy in 0..<Int(cellSize.height) {
@@ -95,19 +95,19 @@ extension VelocityFieldNode {
     }
     
     
-    func updateCell(cell:VelocityCell) {
+    func updateCell(_ cell:VelocityCell) {
         
         let iy = cell.innerPoint.y
         let ix = cell.innerPoint.x
         
-        if let node = validPoint(cell.right, y: iy) { node.addV(cell.diffV); }
-        if let node = validPoint(ix, y: cell.top) { node.addV(cell.diffV); }
-        if let node = validPoint(cell.left, y: iy) { node.addV(cell.diffV); }
-        if let node = validPoint(ix, y: cell.bottom) { node.addV(cell.diffV); }
+        if let node = validPoint(cell.right, y: iy!) { node.addV(cell.diffV); }
+        if let node = validPoint(ix!, y: cell.top) { node.addV(cell.diffV); }
+        if let node = validPoint(cell.left, y: iy!) { node.addV(cell.diffV); }
+        if let node = validPoint(ix!, y: cell.bottom) { node.addV(cell.diffV); }
         
     }
     
-    func getCollideForBall(ball:DynamicNode) -> CGPoint {
+    func getCollideForBall(_ ball:DynamicNode) -> CGPoint {
         var c = CGPoint()
         var temp = CGPoint()
         
@@ -126,7 +126,7 @@ extension VelocityFieldNode {
         
     }
     
-    func validPoint(x:Int, y:Int) -> VelocityCell? {
+    func validPoint(_ x:Int, y:Int) -> VelocityCell? {
         guard x >= 0 && x < cells.count else { return nil }
         guard y >= 0 && y < cells[x].count else { return nil }
         if let cell = cells[x][y] {
@@ -136,16 +136,16 @@ extension VelocityFieldNode {
         }
     }
     
-    func getV(point:CGPoint) -> CGPoint {
+    func getV(_ point:CGPoint) -> CGPoint {
         
         let ix = Int(floor(point.x / gridSize))
         let iy = Int(floor(point.y / gridSize))
                 
-        let l2 = validPoint(ix+1, y: iy)?.velocity ?? CGPointZero
-        let l3 = validPoint(ix, y: iy+1)?.velocity ?? CGPointZero
-        let l4 = validPoint(ix+1, y: iy+1)?.velocity ?? CGPointZero
+        let l2 = validPoint(ix+1, y: iy)?.velocity ?? CGPoint.zero
+        let l3 = validPoint(ix, y: iy+1)?.velocity ?? CGPoint.zero
+        let l4 = validPoint(ix+1, y: iy+1)?.velocity ?? CGPoint.zero
         
-        let l1 = (validPoint(ix, y: iy)?.velocity ?? CGPointZero + l2 + l3 + l4) * 0.25
+        let l1 = (validPoint(ix, y: iy)?.velocity ?? CGPoint.zero + l2 + l3 + l4) * 0.25
         
         
         /*
@@ -160,11 +160,11 @@ extension VelocityFieldNode {
     
     
     
-    func addV(_a:CGPoint, touchPoint:CGPoint) {
+    func addV(_ _a:CGPoint, touchPoint:CGPoint) {
         
-        
-        let ix = touchPoint.x.roundToValue(gridSize) / Int(gridSize);
-        let iy = touchPoint.y.roundToValue(gridSize) / Int(gridSize);
+        var p = touchPoint
+        let ix = p.x.roundToValue(gridSize) / Int(gridSize);
+        let iy = p.y.roundToValue(gridSize) / Int(gridSize);
         
         /*
          patches[ix][iy].addChem(amt);
@@ -189,7 +189,7 @@ extension VelocityFieldNode {
         //println("cellsX: " + ix + "  cellsY: " + iy);
     }
     
-    func addChemPosition( amt:CGFloat, ix:Int, iy:Int) {
+    func addChemPosition( _ amt:CGFloat, ix:Int, iy:Int) {
         /*
          if (ix<0) { ix = patches.length - ix; }
          if (ix>=patches.length) { ix  = 0; }

@@ -45,13 +45,13 @@ class MoverNode:SKNode {
 
 extension MoverNode {
     
-    func get(data:[[MoverNode?]], i:NodeIndex) -> MoverNode? {
+    func get(_ data:[[MoverNode?]], i:NodeIndex) -> MoverNode? {
         guard i.x >= 0 && i.x < data.count else { return nil }
         guard i.y >= 0 && i.y < data[i.x].count else { return nil }
         return data[i.x][i.y]
     }
     
-    func neighbors(data:[[MoverNode?]], i:NodeIndex) -> [MoverNode] {
+    func neighbors(_ data:[[MoverNode?]], i:NodeIndex) -> [MoverNode] {
         var neighbors:[MoverNode] = []
         
         for n in i.neighbors() {
@@ -66,7 +66,7 @@ extension MoverNode {
     func updatePath() {
     }
 
-    func input(data:[[MoverNode?]], magnitude:CGFloat, point:CGPoint) -> [NodeIndex] {
+    func input(_ data:[[MoverNode?]], magnitude:CGFloat, point:CGPoint) -> [NodeIndex] {
         var childrenIndexes:[NodeIndex] = [index]
         
         var copy = data
@@ -94,7 +94,7 @@ extension MoverNode {
         return childrenIndexes
     }
     
-    func lerpToTarget(magnitude:CGFloat, point:CGPoint) {
+    func lerpToTarget(_ magnitude:CGFloat, point:CGPoint) {
         let target = origin.cartesian((point - origin).angle, radius: min(point.distanceTo(endPoint) * magnitude, padding * 10))
         
         endPoint = lerp(start: endPoint, end: target, t: 0.1)

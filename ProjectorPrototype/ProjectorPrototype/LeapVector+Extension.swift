@@ -11,7 +11,7 @@ import Foundation
 
 extension LeapVector {
     func toPoint() -> CGPoint {
-        return CGPointMake(CGFloat(x), CGFloat(y))
+        return CGPoint(x: CGFloat(x), y: CGFloat(y))
     }
 }
 

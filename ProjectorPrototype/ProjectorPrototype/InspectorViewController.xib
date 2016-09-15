@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="InspectorViewController" customModule="ProjectorPrototype" customModuleProvider="target">
+            <connections>
+                <outlet property="inputPosX" destination="TER-aQ-ho0" id="xQ3-Um-v4U"/>
+                <outlet property="inputPosY" destination="k8x-i3-2oN" id="jFJ-Og-4gt"/>
+                <outlet property="inputPosZ" destination="k8x-i3-2oN" id="bkY-tI-crW"/>
+                <outlet property="inputRotX" destination="U9a-cB-gkb" id="dhi-Lc-67Q"/>
+                <outlet property="inputRotY" destination="bhJ-A7-8rZ" id="fJa-cr-prh"/>
+                <outlet property="inputRotZ" destination="eY7-bH-5gN" id="BDj-mB-Sh1"/>
+                <outlet property="popUp" destination="xuY-Vm-rOH" id="zB2-Fi-9jF"/>
+                <outlet property="posXInput" destination="7yZ-hY-iop" id="hg2-6y-kLD"/>
+                <outlet property="posYInput" destination="7yZ-hY-iop" id="BRT-fz-2lM"/>
+                <outlet property="posZInput" destination="7yZ-hY-iop" id="NDD-zN-acr"/>
+                <outlet property="rotXInput" destination="7yZ-hY-iop" id="J5l-gk-LXv"/>
+                <outlet property="rotYInput" destination="7yZ-hY-iop" id="Sfh-xY-GcJ"/>
+                <outlet property="rotZInput" destination="7yZ-hY-iop" id="51z-p2-Sge"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jo5-GT-OTh">
+                    <rect key="frame" x="-49" y="-33" width="200" height="128"/>
+                    <subviews>
+                        <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xuY-Vm-rOH">
+                            <rect key="frame" x="39" y="104" width="123" height="26"/>
+                            <popUpButtonCell key="cell" type="push" title="Choose a side" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="EZL-YH-hZG" id="gm9-IY-2j3">
+                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="menu"/>
+                                <menu key="menu" id="hMg-xN-I1j">
+                                    <items>
+                                        <menuItem title="Choose a side" state="on" id="EZL-YH-hZG"/>
+                                        <menuItem title="Item 2" id="qje-Pm-rtF"/>
+                                        <menuItem title="Item 3" id="4Zu-ew-4Wd"/>
+                                    </items>
+                                </menu>
+                            </popUpButtonCell>
+                            <connections>
+                                <action selector="popUpButtonAction:" target="-2" id="7wi-h1-6El"/>
+                            </connections>
+                        </popUpButton>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yZ-hY-iop">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="99"/>
+                            <subviews>
+                                <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xfy-WM-4la">
+                                    <rect key="frame" x="0.0" y="0.0" width="96" height="99"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDW-Io-Vob">
+                                            <rect key="frame" x="18" y="81" width="60" height="18"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Position" id="uBk-5O-js0">
+                                                <font key="font" metaFont="system" size="14"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TER-aQ-ho0">
+                                            <rect key="frame" x="0.0" y="54" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="X" drawsBackground="YES" id="sfu-2I-0Qs">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="jCJ-xg-MGH"/>
+                                            </connections>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k8x-i3-2oN">
+                                            <rect key="frame" x="0.0" y="27" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Y" drawsBackground="YES" id="GyR-ZP-hXX">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="5PW-AO-2UX"/>
+                                            </connections>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tMK-oB-GIc">
+                                            <rect key="frame" x="0.0" y="0.0" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Z" drawsBackground="YES" id="xGq-fi-ztb">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="fBK-4n-Db4"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gHY-4D-moo">
+                                    <rect key="frame" x="104" y="0.0" width="96" height="99"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfM-1A-RML">
+                                            <rect key="frame" x="17" y="81" width="62" height="18"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Rotation" id="Wyi-p9-5si">
+                                                <font key="font" metaFont="system" size="14"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U9a-cB-gkb">
+                                            <rect key="frame" x="0.0" y="54" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="X" drawsBackground="YES" id="NeT-w7-yO9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="abU-XU-aOM"/>
+                                            </connections>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhJ-A7-8rZ">
+                                            <rect key="frame" x="0.0" y="27" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Y" drawsBackground="YES" id="y1a-hp-RH9">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="PFQ-pK-Czm"/>
+                                            </connections>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eY7-bH-5gN">
+                                            <rect key="frame" x="0.0" y="0.0" width="96" height="22"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="Z" drawsBackground="YES" id="Z8Q-pO-8SO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="textInputAction:" target="-2" id="iUh-5a-CKv"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                            </subviews>
+                            <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
+                            </visibilityPriorities>
+                            <customSpacing>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                            </customSpacing>
+                        </stackView>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Jo5-GT-OTh" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="nvE-Az-EKx"/>
+                <constraint firstAttribute="bottom" secondItem="Jo5-GT-OTh" secondAttribute="bottom" constant="16" id="qTO-BD-NDv"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

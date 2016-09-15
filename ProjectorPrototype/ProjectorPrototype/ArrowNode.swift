@@ -22,15 +22,15 @@ class ArrowNode:SKNode {
         }
     }
     
-    private var line:SKShapeNode!
+    fileprivate var line:SKShapeNode!
     
     override init() {
         super.init()
         
         line = SKShapeNode()
         line.lineWidth = 4
-        line.lineCap = .Round
-        line.lineJoin = .Miter
+        line.lineCap = .round
+        line.lineJoin = .miter
         
         line.strokeColor = SKColor( red: 0.5, green: 0.7297, blue: 1.0, alpha: 1.0 )
         self.addChild(line)
@@ -43,10 +43,9 @@ class ArrowNode:SKNode {
 
 extension ArrowNode {
     func updatePath() {
-        let ref = CGPathCreateMutable()
-        CGPathMoveToPoint(ref, nil, origin.x, origin.y)
-        
-        CGPathAddLineToPoint(ref, nil, endPoint.x , endPoint.y)
+        let ref = CGMutablePath()
+        ref.move(to: origin)
+        ref.addLine(to: endPoint)
         line.path = ref
     }
 }

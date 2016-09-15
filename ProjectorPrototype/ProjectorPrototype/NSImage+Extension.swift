@@ -10,23 +10,23 @@ import Foundation
 import Cocoa
 
 extension NSImage {
-    func getPixelColor(pos: CGPoint) -> NSColor {
+    func getPixelColor(_ pos: CGPoint) -> NSColor {
         
-        var pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
-        var data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+        let pixelData = self.CGImage.dataProvider?.data
+        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
         
-        var pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
+        let pixelInfo: Int = ((Int(self.size.width) * Int(pos.y)) + Int(pos.x)) * 4
         
-        var r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
-        var g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
-        var b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
+        let r = CGFloat(data[pixelInfo]) / CGFloat(255.0)
+        let g = CGFloat(data[pixelInfo+1]) / CGFloat(255.0)
+        let b = CGFloat(data[pixelInfo+2]) / CGFloat(255.0)
         //        var a = CGFloat(data[pixelInfo+3]) / CGFloat(255.0)
-        var a = CGFloat(1.0)
+        let a = CGFloat(1.0)
         
         return NSColor(red: r, green: g, blue: b, alpha: a)
     }
     
-    func placeImageOnImage(pos: NSPoint, top: NSImage) -> NSImage {
+    func placeImageOnImage(_ pos: NSPoint, top: NSImage) -> NSImage {
         
         let fullyRect = NSRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
         let rect = NSRect(x: pos.x - 25, y: (self.size.height - pos.y) - 25, width: 50, height: 50)
@@ -38,13 +38,13 @@ extension NSImage {
         
         //        let red = NSColor.redColor()
         //        red.setFill()
-        top.drawInRect(rect)
+        top.draw(in: rect)
         
         unlockFocus()
         return self
     }
     
-    func DrawImageInNSGraphicsContext(size: CGSize, drawFunc: ()->()) -> NSImage {
+    func DrawImageInNSGraphicsContext(_ size: CGSize, drawFunc: ()->()) -> NSImage {
         let rep = NSBitmapImageRep(
             bitmapDataPlanes: nil,
             pixelsWide: Int(size.width),
@@ -60,7 +60,7 @@ extension NSImage {
         let context = NSGraphicsContext(bitmapImageRep: rep!)
         
         NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.setCurrentContext(context)
+        NSGraphicsContext.setCurrent(context)
         
         drawFunc()
         
@@ -75,9 +75,9 @@ extension NSImage {
 }
 
 extension NSImage {
-    var CGImage: CGImageRef {
+    var CGImage: CGImage {
         get {
-            return self.CGImageForProposedRect(nil, context: nil, hints: nil)!
+            return self.cgImage(forProposedRect: nil, context: nil, hints: nil)!
         }
     }
 }

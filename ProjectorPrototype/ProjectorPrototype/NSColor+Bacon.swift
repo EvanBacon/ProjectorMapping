@@ -86,28 +86,28 @@ extension NSColor {
     
     var red: CGFloat {
         get {
-            let components = CGColorGetComponents(self.CGColor)
-            return components[0]
+            let components = self.cgColor.components
+            return components![0]
         }
     }
     
     var green: CGFloat {
         get {
-            let components = CGColorGetComponents(self.CGColor)
-            return components[1]
+            let components = self.cgColor.components
+            return components![1]
         }
     }
     
     var blue: CGFloat {
         get {
-            let components = CGColorGetComponents(self.CGColor)
-            return components[2]
+            let components = self.cgColor.components
+            return components![2]
         }
     }
     
     var alpha: CGFloat {
         get {
-            return CGColorGetAlpha(self.CGColor)
+            return self.cgColor.alpha
         }
     }
     
@@ -120,15 +120,15 @@ extension NSColor {
     
     
     convenience init(hex:String) {
-        let hexString:NSString = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let scanner            = NSScanner(string: hexString as String)
+        let hexString:NSString = hex.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) as NSString
+        let scanner            = Scanner(string: hexString as String)
         
         if (hexString.hasPrefix("#")) {
             scanner.scanLocation = 1
         }
         
         var color:UInt32 = 0
-        scanner.scanHexInt(&color)
+        scanner.scanHexInt32(&color)
         
         let mask = 0x000000FF
         let r = Int(color >> 16) & mask
@@ -145,7 +145,7 @@ extension NSColor {
     
     
     
-    func getColorAccentForColor(count: Int) -> [NSColor] {
+    func getColorAccentForColor(_ count: Int) -> [NSColor] {
         let interval = CGFloat(6.0)
         var h: CGFloat = 0
         var s: CGFloat = 0
@@ -209,9 +209,9 @@ extension NSColor {
     
     
     func randomBrightColor() -> NSColor {
-        let hue = CGFloat( Double(arc4random()) % 256.0 / 256.0 );  //  0.0 to 1.0
-        let saturation = CGFloat( Double(arc4random()) % 128.0 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-        let brightness = CGFloat( Double(arc4random()) % 128.0 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+        let hue = CGFloat( Double(arc4random()).truncatingRemainder(dividingBy: 256.0) / 256.0 );  //  0.0 to 1.0
+        let saturation = CGFloat( Double(arc4random()).truncatingRemainder(dividingBy: 128.0) / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+        let brightness = CGFloat( Double(arc4random()).truncatingRemainder(dividingBy: 128.0) / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
         return NSColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
     }
     
@@ -224,8 +224,8 @@ extension NSColor {
     func randomDarkColor() -> NSColor {
         let hue = CGFloat( 1.0 );  //  Blue
         
-        let saturation = CGFloat( Double(arc4random()) % 128.0 / 256.0 );  //  0.5 to 1.0, away from white
-        let brightness = CGFloat( Double(arc4random()) % 128.0 / 256.0 );  //  0.5 to 1.0, away from black
+        let saturation = CGFloat( Double(arc4random()).truncatingRemainder(dividingBy: 128.0) / 256.0 );  //  0.5 to 1.0, away from white
+        let brightness = CGFloat( Double(arc4random()).truncatingRemainder(dividingBy: 128.0) / 256.0 );  //  0.5 to 1.0, away from black
         
         return NSColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1.0)
         
@@ -254,19 +254,19 @@ extension NSColor {
     
     func contrast () -> NSColor {
         if (self.closerToWhite()) { // Whites
-            return NSColor.blackColor()
+            return NSColor.black
         }
         else{ // Blacks
-            return NSColor.whiteColor()
+            return NSColor.white
         }
     }
     
     func closerToWhite() -> Bool {
-        let components = CGColorGetComponents(self.CGColor)
+        let components = self.cgColor.components
         
-        let r = Float(components[0] / 255.0) * 0.3
-        let g = Float(components[1] / 255.0) * 0.59
-        let b = Float(components[2] / 255.0) * 0.11
+        let r = Float((components?[0])! / 255.0) * 0.3
+        let g = Float((components?[1])! / 255.0) * 0.59
+        let b = Float((components?[2])! / 255.0) * 0.11
         
         return (Float(r + g + b) > Float(0.001961))
     }
@@ -297,7 +297,7 @@ extension NSColor {
      :param: lighting percent percentage
      :returns: lighter NSColor
      */
-    func lighterColor(percent : Double) -> NSColor {
+    func lighterColor(_ percent : Double) -> NSColor {
         return colorWithBrightnessFactor(CGFloat(1 + percent));
     }
     
@@ -307,7 +307,7 @@ extension NSColor {
      :param: darking percent percentage
      :returns: darker NSColor
      */
-    func darkerColor(percent : Double) -> NSColor {
+    func darkerColor(_ percent : Double) -> NSColor {
         return colorWithBrightnessFactor(CGFloat(1 - percent));
     }
     
@@ -317,7 +317,7 @@ extension NSColor {
      :param: factor brightness factor
      :returns: modified color
      */
-    func colorWithBrightnessFactor(factor: CGFloat) -> NSColor {
+    func colorWithBrightnessFactor(_ factor: CGFloat) -> NSColor {
         var hue : CGFloat = 0
         var saturation : CGFloat = 0
         var brightness : CGFloat = 0

@@ -31,7 +31,7 @@ class VelocityScene: SKScene {
 extension SKNode {
     func centerInParent() {
         guard let parent = self.parent else { return }
-        position = CGPoint(x:CGRectGetMidX(parent.frame), y:CGRectGetMidY(parent.frame))
+        position = CGPoint(x:parent.frame.midX, y:parent.frame.midY)
     }
 }
 
@@ -55,7 +55,7 @@ extension VelocityScene {
 
 extension VelocityScene {
     
-    func fakeTouch(position:CGPoint) {
+    func fakeTouch(_ position:CGPoint) {
         if let touchPoint = touchPoint {
             velocity = position - touchPoint
         }
@@ -68,7 +68,7 @@ extension VelocityScene {
             if let velocity = velocity {
                 
                 let halfNode = CGPoint(x: velocityField.size.width / 2, y: velocityField.size.height / 2)
-                let convertedPoint = (self.convertPoint(touchPoint, toNode: velocityField)) + halfNode
+                let convertedPoint = (self.convert(touchPoint, to: velocityField)) + halfNode
                 velocityField.addV(velocity, touchPoint:convertedPoint)
             }
         }
@@ -76,7 +76,7 @@ extension VelocityScene {
         velocityField.update()
     }
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         updateField()
     }
     
@@ -84,8 +84,9 @@ extension VelocityScene {
 }
 
 extension CGFloat {
-    func roundToValue(value:CGFloat) -> Int {
-        return Int(value * round(self / value))
+    mutating func roundToValue(_ value:CGFloat) -> Int {
+        let v = self
+        return Int(Float(value) * roundf(Float(Double(v / value))))
     }
 }
 

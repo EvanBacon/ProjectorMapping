@@ -14,117 +14,185 @@ import SpriteKit
 let DEBUG = true
 
 class GameViewController: NSViewController {
-
+    
+    var projectionWindows:[ProjectionWindowController] = []
+    
+    var openProjectorWindows:[ProjectionWindowController]! {
+        get {
+            var a = [ProjectionWindowController]()
+            for window in NSApplication.shared().windows {
+                if let window = window.windowController as? ProjectionWindowController {
+                    a.append(window)
+                }
+            }
+            return a
+        }
+    }
+    
     @IBOutlet var containerView: NSStackView!
     let imageView = SKView()
-
     
+    var cursor:SCNNode!
     
     var startingPoint = CGPoint.zero
     var isGrabbing: Bool = false
     var isDrawing: Bool = false
     var paths: [SKShapeNode] = []
-//    var drawing: [[LeapDrawingIntent]] = [[]]
+    //    var drawing: [[LeapDrawingIntent]] = [[]]
     var drawing: [SKEmitterNode] = []
-
+    
     var redrawComplete: Bool = true
     var needsUpdate = false
     
     let distance: CGFloat = 8
     var gameView: GameView!
     
-
-    var texture: SKScene!
-    
-    var mesh: SCNNode!
     let cameraOrbitRadius: CGFloat = 3
     var curXRadians = Float(0)
     var curYRadians = Float(0)
     var lastXRadians = Float(0)
     var lastYRadians = Int(0)
-
-    var generativeParticle: SKEmitterNode!
+    
+    var projectorScene:ProjectorScene!
 }
 
-extension NSView {
-    func pinToParent() {
-        guard let parent = self.superview else { return }
-        
-        parent.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: parent, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0))
 
-        parent.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: parent, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0))
+
+extension GameViewController {
+    @IBAction func newPerspective(_ sender: AnyObject) {
+        addWindow(M_PI_2 * Double(openProjectorWindows.count))
+    }
+    
+    @IBAction func toggleDebug(_ sender: AnyObject) {
+        for view in containerView.subviews {
+            if let view = view as? GameView {
+                view.showsStatistics = !view.showsStatistics
+            }
+        }
         
-        parent.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: parent, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0))
+        for controller in openProjectorWindows {
+            
+            if let view = controller.controller.scnView as? GameView {
+                view.showsStatistics = !view.showsStatistics
+            }
+        }
+    }
+    
+    @IBAction func toggleDebugOption(_ sender: NSMenuItem) {
+        var option:SCNDebugOptions!
+        switch sender.tag {
+        case 1:
+            option = SCNDebugOptions.showBoundingBoxes
+            break
+        case 2:
+            option = SCNDebugOptions.showWireframe
+            break
+        default:
+            option = SCNDebugOptions()
+            break
+        }
         
-        parent.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: parent, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        for view in containerView.subviews {
+            if let view = view as? GameView {
+                view.debugOptions = option
+            }
+        }
         
+        for controller in openProjectorWindows {
+            if let view = controller.controller.scnView as? GameView {
+                view.debugOptions = option
+            }
+        }
+    }
+    
+    //    gameView.debugOptions = SCNDebugOptions.ShowBoundingBoxes
+    
+    
+    @IBAction func rotateZ(_ sender: AnyObject) {
+        projectorScene.mesh.eulerAngles.z += CGFloat(M_PI_2)
+    }
+    
+    @IBAction func rotateX(_ sender: AnyObject) {
+        projectorScene.mesh.eulerAngles.x += CGFloat(M_PI_2)
+    }
+    @IBAction func rotateY(_ sender: AnyObject) {
+        projectorScene.mesh.eulerAngles.y += CGFloat(M_PI_2)
+    }
+    @IBAction func loadCube(_ sender: AnyObject) {
+        // create a new scene
+//        let scene = buildScene()
+        
+        projectorScene.setupMesh("cube")
+        
+//        setupSceneViews(scene)
+    }
+    @IBAction func loadGown(_ sender: AnyObject) {
+        // create a new scene
+//        let scene = buildScene("art.scnassets/untitled.dae")
+        
+        projectorScene.setupMesh()
+        
+//        setupSceneViews(scene)
+    }
+    @IBAction func loadSphere(_ sender: AnyObject) {
+        // create a new scene
+//        let scene = buildScene()
+        projectorScene.setupMesh("sphere")
+        
+//        setupSceneViews(scene)
     }
 }
 
 
 extension GameViewController {
-    
- 
-    @IBAction func rotateZ(sender: AnyObject) {
-        mesh.eulerAngles.z += CGFloat(M_PI_2)
+    func nameForAngle(_ angle:Double) -> String {
+        switch angle {
+        case 0:
+            return "Front"
+        case M_PI:
+            return "Back"
+        case M_PI_2:
+            return "Right"
+        case -M_PI_2:
+            return "Left"
+        default:
+            return "\(floor(angle))°"
+        }
     }
-    
-    @IBAction func rotateX(sender: AnyObject) {
-        mesh.eulerAngles.x += CGFloat(M_PI_2)
-    }
-    @IBAction func rotateY(sender: AnyObject) {
-        mesh.eulerAngles.y += CGFloat(M_PI_2)
-    }
-    @IBAction func loadCube(sender: AnyObject) {
-        // create a new scene
-        let scene = buildScene()
+    func addWindow(_ angle:Double) {
         
-        setupMesh(scene, name: "cube")
+        if openProjectorWindows.count >= 4 {
+            return
+        }
         
-        setupSceneViews(scene)
-    }
-    @IBAction func loadGown(sender: AnyObject) {
-        // create a new scene
-        let scene = buildScene("art.scnassets/untitled.dae")
-
-        setupMesh(scene)
-        
-        setupSceneViews(scene)
-    }
-    @IBAction func loadSphere(sender: AnyObject) {
-        // create a new scene
-        let scene = buildScene()
-        setupMesh(scene, name: "sphere")
-        
-        setupSceneViews(scene)
+        if let view = containerView.subviews.first as? SCNView {
+            if let scene = view.scene {
+                let secondWindowController = ProjectionWindowController(scnView: projectorScene.addView(scene: scene, angle: angle), title: nameForAngle(angle))
+                secondWindowController.showWindow(self)
+                
+                projectionWindows.append(secondWindowController)
+            }
+        }
     }
 }
 
 extension GameViewController {
+    func setupCursor(_ root:SCNNode) {
+        cursor = SCNNode(geometry: SCNSphere(radius: 0.05))
+        cursor.geometry?.firstMaterial?.diffuse.contents = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
+        root.addChildNode(cursor)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        // create a new scene
-        let scene = buildScene("art.scnassets/untitled.dae")
         
-        
-        let res: CGFloat = 1024
-        texture = VelocityScene(size: CGSize(width: res, height: res))
-        texture.scaleMode = .AspectFit
-        texture.backgroundColor = NSColor.whiteColor()
-        setupMesh(scene)
-        
-        setupSceneViews(scene)
-        
+        projectorScene = ProjectorScene()
+        //        setupCursor(scene.rootNode)
+        setupSceneViews(projectorScene)
         setupLoop()
         
-        
-        
         imageView.frame = CGRect(x: 0,y: 0,width: 100,height: 100)
-//        imageView.image = texture
-        
-//        imageView.presentScene(texture)
+        //        imageView.presentScene(texture)
         
         self.view.addSubview(imageView)
     }
@@ -135,54 +203,33 @@ extension GameViewController {
 }
 
 extension GameViewController {
-  
-    private func setupCamera(scene:SCNScene) -> SCNNode {
-        let min = mesh.min()
-        let size = mesh.size()
-        let center = mesh.center
-        
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: center.x, y: center.y , z: min.z + size.z + 2)
-        cameraNode.camera?.usesOrthographicProjection = true
-        cameraNode.camera?.zNear = 0.0001
-        
-        let largestSide = Double(max(size.x, max(size.y, size.z))) * 1.1
-        cameraNode.camera?.zFar = (largestSide + 5) * 100 //Dont even think about it
-//        cameraNode.camera?.xFov = largestSide
-//        cameraNode.camera?.automaticallyAdjustsZRange = true
-        cameraNode.camera?.orthographicScale = largestSide / 2
-//        let lookAt = SCNLookAtConstraint(target:mesh)
-////        lookAt.gimbalLockEnabled = true
-//        cameraNode.constraints = [lookAt]
-        return cameraNode
-    }
     
-    private func setupSceneViews(scene:SCNScene) {
+    fileprivate func setupSceneViews(_ scene:SCNScene) {
         for child in containerView.subviews {
             child.removeFromSuperview()
         }
-        gameView = addView(scene, angle: 0)
+        gameView = projectorScene.addView(scene: scene, angle: 0)
+        
         self.containerView.addArrangedSubview(gameView)
-
-        self.containerView.addArrangedSubview(addView(scene, angle: M_PI/2))
-//        self.containerView.addArrangedSubview(addView(scene, angle: M_PI))
-//        self.containerView.addArrangedSubview(addView(scene, angle: -M_PI/2))
+        
+        //        self.containerView.addArrangedSubview(addView(scene, angle: M_PI/2))
+        //        self.containerView.addArrangedSubview(addView(scene, angle: M_PI))
+        //        self.containerView.addArrangedSubview(addView(scene, angle: -M_PI/2))
     }
-  
-    private func buildMesh(scene:SCNScene, named:String?=nil) -> SCNNode {
+    
+    fileprivate func buildMesh(_ scene:SCNScene, named:String?=nil) -> SCNNode {
         var mesh:SCNNode?
         
         if let name = named {
-            if let node = scene.rootNode.childNodeWithName(name, recursively: true) {
+            if let node = scene.rootNode.childNode(withName: name, recursively: true) {
                 mesh = node
             } else {
                 if name == "cube" {
                     mesh = SCNNode(geometry: SCNBox(width: 1, height: 1, length: 1, chamferRadius: 0))
-
+                    
                 } else if name == "sphere" {
                     mesh = SCNNode(geometry: SCNSphere(radius: 1))
- 
+                    
                 }
                 /// Dope debuging
                 let names = scene.rootNode.childNodes.map({
@@ -192,133 +239,57 @@ extension GameViewController {
                 print("Wrong mesh name, maybe you meant: \(names)")
             }
         } else {
-//            mesh = SCNNode(geometry: SCNBox(width: 2,height: 2,length: 2,chamferRadius: 0))
-
+            //            mesh = SCNNode(geometry: SCNBox(width: 2,height: 2,length: 2,chamferRadius: 0))
+            
             mesh = SCNNode(geometry: SCNSphere(radius: 1))
         }
-
+        
         return mesh ?? buildMesh(scene)
     }
     
-    private func buildScene(named:String?=nil) -> SCNScene {
+    fileprivate func buildScene(_ named:String?=nil) -> SCNScene {
         let scene = SCNScene(withName: named)
         
-    
+        
+        
         // create and add a light to the scene
         let lightNode = SCNNode()
         lightNode.light = SCNLight().defaultOmni()
         lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
         scene.rootNode.addChildNode(lightNode)
         
-//         create and add an ambient light to the scene
+        //         create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight().defaultAmbient()
         scene.rootNode.addChildNode(ambientLightNode)
-//
+        //
         
         return scene
     }
     
     
-    func mat(color:NSColor) -> SCNMaterial {
+    func mat(_ color:NSColor) -> SCNMaterial {
         let m = SCNMaterial()
         m.diffuse.contents = color
         return m
         
     }
-    private func setupMesh(scene:SCNScene, name:String="Cube") {
-        mesh = buildMesh(scene, named: name)
-        mesh.geometry?.firstMaterial?.diffuse.contents = texture
-//        self.mesh.runAction(SCNAction.repeatActionForever(SCNAction.rotateByX(0, y: 2, z: 0, duration: 3)))
-
-        scene.rootNode.addChildNode(mesh)
-        mesh.resetTransforms()
-
-//        mesh.centerPivot()
-    }
     
-    private func setupGameView(scene:SCNScene, camera:SCNNode) -> GameView {
-        let gameView = GameView(frame: self.view.frame)
-        gameView.translatesAutoresizingMaskIntoConstraints = false
-        // set the scene to the view
-        gameView.scene = scene
-        
-        // allows the user to manipulate the camera
-        gameView.allowsCameraControl = DEBUG
-        
-        // show statistics such as fps and timing information
-        gameView.showsStatistics = DEBUG
-        
-        // configure the view
-        gameView.backgroundColor = NSColor.grayColor()
-        
-//        gameView.debugOptions = SCNDebugOptions.ShowBoundingBoxes
-        gameView.delegate = self
-        gameView.playing = true
-        gameView.overlaySKScene = CursorScene(size: gameView.frame.size)
-        gameView.overlaySKScene!.hidden = false
-        gameView.overlaySKScene!.scaleMode = .AspectFill
-//        gameView.autoenablesDefaultLighting = true
-        
-        scene.rootNode.addChildNode(camera)
-        gameView.pointOfView = camera
-
-        return gameView
-    }
-    
-    private func addView(scene:SCNScene, angle:Double) -> GameView {
-        
-        // create and add a camera to the scene
-        let camera = setupCamera(scene)
-        
-        let meshSize = mesh.size()
-        camera.rotation = SCNVector4(0, 1, 0, angle + M_PI)
-        
-        let y = camera.position.y
-        camera.position = getMoveVectorForAngle(angle, distance: Double(camera.position.z))
-        camera.position.y = y
-        
-
-        
-        print("camera", camera.position, angle, camera.rotation)
-        let sceneView = setupGameView(scene, camera: camera)
-        
-        return sceneView
-    }
-    
-    private func setupLoop() {
+    fileprivate func setupLoop() {
         LeapMotionManager.sharedInstance.addListener(self)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(1/16, target: self, selector: #selector(GameViewController.update), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 1/16, target: self, selector: #selector(GameViewController.update), userInfo: nil, repeats: true)
     }
     
     func update() {
-        self.mesh.runAction(SCNAction.fadeInWithDuration(0.000001))
+        projectorScene.mesh.runAction(SCNAction.fadeIn(duration: 0.000001))
         if needsUpdate {
             needsUpdate = false
             renderDrawing()
         }
     }
     
-   
-    func setupParticle() {
-        let path = NSBundle.mainBundle().pathForResource("Paint", ofType: "sks")
-        
-        if let generativeParticle = NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? SKEmitterNode {
-            
-            self.generativeParticle = generativeParticle
-            generativeParticle.position = CGPoint(x: texture.size.width/2, y: texture.size.height/2)
-            generativeParticle.name = "rainParticle"
-            generativeParticle.targetNode = texture
-            
-            
-            //            texture.addChild(generativeParticle)
-        }
-    }
-    
-    func updateDrag(translation: CGPoint, end: Bool=false) {
-        
-        //        let translation = CGPoint(x: event.deltaX, y: event.deltaY)
+    func updateDrag(_ translation: CGPoint, end: Bool=false) {
         var xRadians = GLKMathDegreesToRadians(Float(translation.x))
         //        var yRadians = GLKMathDegreesToRadians(Float(translation.y))
         
@@ -327,8 +298,6 @@ extension GameViewController {
         xRadians = (xRadians / 10) + curXRadians
         //        yRadians = (yRadians / 10) + curYRadians
         
-        // -- Limit rotation to prevent looking 360 degrees vertically
-        //        yRadians = max(Float(-M_PI_2), min(Float(M_PI_2), yRadians))
         
         //        cameraNode.rotation = SCNVector4(x: 1, y: 0, z: 0, w: CGFloat(yRadians))
         //        lastXRadians = event.absoluteX
@@ -344,39 +313,18 @@ extension GameViewController {
             
             curXRadians = xRadians
             
-        
+            
         } else {
-//            mesh.rotation = SCNVector4Make(0, 1, 0, CGFloat(xRadians))
+            //            mesh.rotation = SCNVector4Make(0, 1, 0, CGFloat(xRadians))
             
         }
         lastXRadians = xRadians
     }
-    
-
-
-}
-
-extension GameViewController {
-    private func getMoveVectorForAngle(angle: Double = 0, distance: Double = 15) -> SCNVector3 {
-        return getSphericalCoords(0, tVal: angle, rVal: distance)
-    }
-
-    
-    func getSphericalCoords(sVal: Double, tVal: Double, rVal: Double) -> SCNVector3 {
-        return SCNVector3(-(cos(sVal) * sin(tVal) * rVal),
-                          sin(sVal) * rVal,
-                          -(cos(sVal) * cos(tVal) * rVal))
-    }
-}
-
-extension GameViewController: SCNSceneRendererDelegate {
-    func renderer(renderer: SCNSceneRenderer, didRenderScene scene: SCNScene, atTime time: NSTimeInterval) {
-    }
 }
 
 extension GameViewController: LeapMotionManagerDelegate {
-
-    func leapMotionManagerDidUpdateFrame(frame: LeapFrame) {
+    
+    func leapMotionManagerDidUpdateFrame(_ frame: LeapFrame) {
         if let hands = frame.hands as? [LeapHand] {
             if hands.count <= 0 {
                 return
@@ -384,10 +332,10 @@ extension GameViewController: LeapMotionManagerDelegate {
             
             if hands.count > 0 {
                 
-                if let scene = texture as? VelocityScene {
-                    scene.paused = (hands.count != 1)
+                if let scene = projectorScene.texture as? VelocityScene {
+                    scene.isPaused = (hands.count != 1)
                 }
-    
+                
                 
                 if let hand = hands.first {
                     
@@ -395,165 +343,182 @@ extension GameViewController: LeapMotionManagerDelegate {
                         addDrawing(hand)
                     } else {
                         endDrawing()
-                        
                     }
-                    print(hand.palmPosition)
+                    
                     
                     isGrabbing = hand.grabbing
                     isDrawing = hand.pinching
-  
+                    
                 }
             }
         }
     }
-
-    func rotateGesture(gesture: LeapCircleGesture) {
-
+    
+    func rotateGesture(_ gesture: LeapCircleGesture) {
+        
     }
-
-    func swipeGesture(gesture: LeapSwipeGesture) {
-        let direction = gesture.direction
-        let speed = gesture.speed
-        let position = gesture.position
-        let id = gesture.id
-
-
-        switch gesture.state {
-        case LEAP_GESTURE_STATE_START:
-            break
-        case LEAP_GESTURE_STATE_UPDATE:
-            break
-        case LEAP_GESTURE_STATE_STOP:
-            break
-        case LEAP_GESTURE_STATE_INVALID:
-            break
-        default:
-            fatalError("WTF")
-            break
-        }
-
-
-
-        print(direction, direction.direction2D, speed, position, id, gesture.state)
+    
+    func swipeGesture(_ gesture: LeapSwipeGesture) {
+        //        let direction = gesture.direction
+        //        let speed = gesture.speed
+        //        let position = gesture.position
+        //        let id = gesture.id
+        //
+        //
+        //        switch gesture.state {
+        //        case LEAP_GESTURE_STATE_START:
+        //            break
+        //        case LEAP_GESTURE_STATE_UPDATE:
+        //            break
+        //        case LEAP_GESTURE_STATE_STOP:
+        //            break
+        //        case LEAP_GESTURE_STATE_INVALID:
+        //            break
+        //        default:
+        //            fatalError("WTF")
+        //            break
+        //        }
+        
+        
+        
+        //        print(direction, direction.direction2D, speed, position, id, gesture.state)
     }
-
-    func keyTapGesture(gesture: LeapKeyTapGesture) {
+    
+    func keyTapGesture(_ gesture: LeapKeyTapGesture) {
     }
-
-    func screenTapGesture(gesture: LeapScreenTapGesture) {
+    
+    func screenTapGesture(_ gesture: LeapScreenTapGesture) {
     }
-
 }
 
 extension GameViewController {
-
-    func generator() -> SKEmitterNode {
-        return self.generativeParticle.copy() as! SKEmitterNode
-    }
-
+    
+   
     func endDrawing() {
         //// Touch up
         
-        if let scene = texture as? VelocityScene {
+        if let scene = projectorScene.texture as? VelocityScene {
             scene.touchPoint = nil
         }
         
-//        if let generator = drawing.last {
-//            generator.paused = true
-//        }
-//
-//        let generator = self.generator()
-//
-//        drawing.append(generator)
-
+        //        if let generator = drawing.last {
+        //            generator.paused = true
+        //        }
+        //
+        //        let generator = self.generator()
+        //
+        //        drawing.append(generator)
         
         
         
-//        drawing.append([])
+        
+        //        drawing.append([])
     }
-
-    func addDrawing(hand: LeapHand) {
+    
+    func addDrawing(_ hand: LeapHand) {
         let p = adjustedPoint(hand.palmPosition)
         guard let position = mappedPoint(p) else {
             
-       
+            
             endDrawing()
             
             return
-        
+            
         }
         let strength = hand.palmVelocity.magnitude
-
+        
         updatePan(position, velocity: strength, strength: hand.grabStrength)
     }
-
     
-    
-    func mappedPoint(point: CGPoint) -> CGPoint? {
+    func mappedPoint(_ point: CGPoint) -> CGPoint? {
         
         //        let p = self.convertPoint(point, fromView: nil)
-        let hitResults = gameView.hitTest(point, options: [SCNHitTestFirstFoundOnlyKey: true])
+        let hitResults = gameView.hitTest(point, options: [SCNHitTestOption.firstFoundOnly: true])
         // check that we clicked on at least one object
         if hitResults.count > 0 {
             // retrieved the first clicked object
-            let result: AnyObject = hitResults[0]
+            let result: SCNHitTestResult = hitResults[0]
             
-            if let mappingChannel = result.node!.geometry?.firstMaterial?.diffuse.mappingChannel {
-                let texcoords = result.textureCoordinatesWithMappingChannel(mappingChannel)
+            //            cursor.position = result.worldCoordinates
+            //            print(result.worldNormal)
+            
+            if let mappingChannel = result.node.geometry?.firstMaterial?.diffuse.mappingChannel {
+                let texcoords = result.textureCoordinates(withMappingChannel: mappingChannel)
                 
-                let hit = CGPointMake(CGFloat(texcoords.x * texture.size.width), CGFloat(texcoords.y * texture.size.height))
+                let hit = CGPoint(x: CGFloat(texcoords.x * projectorScene.texture.size.width), y: CGFloat(texcoords.y * projectorScene.texture.size.height))
                 return hit
             }
-            
-            
         }
         
         return nil
     }
-
-
-    func updatePan(position: CGPoint, velocity: Float, strength: Float) {
-//        if let generator = drawing.last {
-//            print(velocity/400)
-//            generator.particleColorSequence = nil
-//            generator.particleColorBlendFactor = 1.0
-//            
-//            generator.particleBirthRate = 100 + CGFloat(400 * strength)
-////            generator.particleScale = CGFloat(strength)
-//            generator.particleColor = NSColor(hue: CGFloat(velocity/400), saturation: 1, brightness: 1, alpha: 1)
-//            generator.paused = false
-//            generator.position = position
-//        }
+    
+    func remapForPoint(_ point: CGPoint) -> CGPoint? {
         
-//        if let scene = texture as? VectorScene {
-//            scene.fakeTouch(position)
-//        }
+        //        let p = self.convertPoint(point, fromView: nil)
+        let hitResults = gameView.hitTest(point, options: [SCNHitTestOption.firstFoundOnly: true])
+        // check that we clicked on at least one object
+        if hitResults.count > 0 {
+            // retrieved the first clicked object
+            let result: SCNHitTestResult = hitResults[0]
+            
+            cursor.position = result.worldCoordinates
+            print(result.worldNormal)
+            
+            if let mappingChannel = result.node.geometry?.firstMaterial?.diffuse.mappingChannel {
+                let texcoords = result.textureCoordinates(withMappingChannel: mappingChannel)
+                
+                let hit = CGPoint(x: CGFloat(texcoords.x * projectorScene.texture.size.width), y: CGFloat(texcoords.y * projectorScene.texture.size.height))
+                return hit
+            }
+        }
         
-        if let scene = texture as? VelocityScene {
+        return nil
+    }
+    
+    
+    func updatePan(_ position: CGPoint, velocity: Float, strength: Float) {
+        //        if let generator = drawing.last {
+        //            print(velocity/400)
+        //            generator.particleColorSequence = nil
+        //            generator.particleColorBlendFactor = 1.0
+        //
+        //            generator.particleBirthRate = 100 + CGFloat(400 * strength)
+        ////            generator.particleScale = CGFloat(strength)
+        //            generator.particleColor = NSColor(hue: CGFloat(velocity/400), saturation: 1, brightness: 1, alpha: 1)
+        //            generator.paused = false
+        //            generator.position = position
+        //        }
+        
+        //        if let scene = texture as? VectorScene {
+        //            scene.fakeTouch(position)
+        //        }
+        
+        if let scene = projectorScene.texture as? VelocityScene {
             scene.fakeTouch(position)
         }
         
         
         
         //        let position = (hand.index?.tipPosition.toPoint())!
-//        let intent = LeapDrawingIntent(strength: velocity, position: position, color: NSColor.greenColor())
-//        drawing[drawing.count - 1].append(intent)
+        //        let intent = LeapDrawingIntent(strength: velocity, position: position, color: NSColor.greenColor())
+        //        drawing[drawing.count - 1].append(intent)
         needsUpdate = true
     }
-
+    
     func renderDrawing() {
-
+        
         if redrawComplete {
             self.redrawComplete = false
-            dispatch_async(dispatch_get_main_queue(), {
-
-//                if let generator = self.drawing.last {
-//                    generator.position =
-////                    if let point = line.last {
-////                        self.generativeParticle.position = point.position
-////                    }
-//                }
-
+            DispatchQueue.main.async(execute: {
+                
+                //                if let generator = self.drawing.last {
+                //                    generator.position =
+                ////                    if let point = line.last {
+                ////                        self.generativeParticle.position = point.position
+                ////                    }
+                //                }
+                
                 //                if self.texture.children.count == self.drawing.count {
                 //                    self.texture.children.last?.removeFromParent()
                 //                }
@@ -576,58 +541,57 @@ extension GameViewController {
                 //                    self.texture.addChild(shapeNode)
                 //
                 //                }
-
-
+                
+                
                 self.redrawComplete = true
-
+                
             })
         }
-
+        
     }
-
-
     
-
-
-    func buildPath(line: [LeapDrawingIntent]) -> CGPathRef? {
+    
+    func buildPath(_ line: [LeapDrawingIntent]) -> CGPath? {
         //1
         if line.count <= 1 {
             return nil
         }
-
-
+        
+        
         //2
-        let ref = CGPathCreateMutable()
-
+        let ref = CGMutablePath()
+        
         //3
         for i in 0..<line.count {
-            let p = line[i].position
-
-            //4
-            if i == 0 {
-                CGPathMoveToPoint(ref, nil, p.x, p.y)
-            } else {
-                CGPathAddLineToPoint(ref, nil, p.x, p.y)
+            if let p = line[i].position {
+                
+                //4
+                if i == 0 {
+                    ref.move(to: p)
+                } else {
+                    ref.addLine(to: p)
+                    
+                }
             }
         }
-
+        
         return ref
-
+        
     }
-
-    func adjustedPoint(point: LeapVector) -> CGPoint {
-
+    
+    func adjustedPoint(_ point: LeapVector) -> CGPoint {
+        
         let appWidth = self.gameView.frame.width
         let appHeight = self.gameView.frame.height
-
+        
         if let currentFrame = LeapMotionManager.sharedInstance.currentFrame {
             let iBox = currentFrame.interactionBox()
-
-
-            let normalizedPoint = iBox.normalizePoint(point, clamp: true).toPoint()
-
-            let appX = normalizedPoint.x * appWidth
-            let appY = (normalizedPoint.y) * appHeight
+            
+            
+            let normalizedPoint = iBox?.normalizePoint(point, clamp: true).toPoint()
+            
+            let appX = (normalizedPoint?.x)! * appWidth
+            let appY = (normalizedPoint?.y)! * appHeight
             //            //The z-coordinate is not used
             //
             return CGPoint(x: appX, y: appY)

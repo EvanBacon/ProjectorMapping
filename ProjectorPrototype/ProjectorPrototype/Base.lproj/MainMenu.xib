@@ -67,11 +67,7 @@
                 <menuItem title="File" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
-                            <menuItem title="New" keyEquivalent="n" id="82">
-                                <connections>
-                                    <action selector="newDocument:" target="-1" id="373"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="New" keyEquivalent="n" id="82"/>
                             <menuItem title="Open…" keyEquivalent="o" id="72">
                                 <connections>
                                     <action selector="openDocument:" target="-1" id="374"/>
@@ -366,8 +362,35 @@
                                     <action selector="rotateZ:" target="z44-Lp-cgU" id="Y8r-gU-Qip"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="TZR-vP-7zG">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Bounding Box" tag="1" id="EpV-Ov-sLi">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleDebugOption:" target="z44-Lp-cgU" id="szc-l1-gZd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Wireframe" tag="2" id="FGy-pa-mOe">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleDebugOption:" target="z44-Lp-cgU" id="XxN-ol-zdM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="None" id="nki-L8-Q4S">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleDebugOption:" target="z44-Lp-cgU" id="mRZ-YN-X8m"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMB-Fu-3m0">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Toggle Debug" id="Z5R-ci-sel">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleDebug:" target="z44-Lp-cgU" id="VaS-OO-bmA"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Close" keyEquivalent="w" id="qzd-Nl-htq">
                                 <connections>
@@ -666,6 +689,11 @@
                 <menuItem title="View" id="295">
                     <menu key="submenu" title="View" id="296">
                         <items>
+                            <menuItem title="New Perspective" keyEquivalent="N" id="PWX-EV-Dh5">
+                                <connections>
+                                    <action selector="newPerspective:" target="z44-Lp-cgU" id="S5G-D9-k5j"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
@@ -735,14 +763,14 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="640" height="480"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="contentRect" x="335" y="390" width="590" height="338"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                <rect key="frame" x="0.0" y="0.0" width="590" height="338"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <stackView canDrawConcurrently="YES" distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" misplaced="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDZ-uR-FaA">
-                        <rect key="frame" x="0.0" y="0.0" width="1280" height="480"/>
+                    <stackView canDrawConcurrently="YES" distribution="fillEqually" orientation="horizontal" alignment="top" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDZ-uR-FaA">
+                        <rect key="frame" x="0.0" y="0.0" width="590" height="338"/>
                     </stackView>
                 </subviews>
                 <constraints>
@@ -752,7 +780,7 @@
                     <constraint firstAttribute="trailing" secondItem="KDZ-uR-FaA" secondAttribute="trailing" id="uEL-WJ-GhZ"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="385" y="452"/>
+            <point key="canvasLocation" x="360" y="310"/>
         </window>
     </objects>
 </document>

@@ -43,7 +43,7 @@ func + (left: SCNVector3, right: SCNVector3) -> SCNVector3 {
 /**
  * Increments a SCNVector3 with the value of another.
  */
-func += (inout left: SCNVector3, right: SCNVector3) {
+func += (left: inout SCNVector3, right: SCNVector3) {
     left = left + right
 }
 

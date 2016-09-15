@@ -43,40 +43,40 @@ class VelocityCell: NSObject {
     }
     
     
-    private func findSides() {
+    fileprivate func findSides() {
         let x = innerPoint.x
         let y = innerPoint.y
         
         if (x == 0) {
             left = Int(cellSize.width - 1);
         } else {
-            left = x - 1;
+            left = x! - 1;
         }
         
         if (x == Int(cellSize.width - 1) ) {
             right = 0;
         } else {
-            right = x + 1;
+            right = x! + 1;
         }
         
         if (y == 0) {
             top = Int(cellSize.height) - 1;
         } else {
-            top = y - 1;
+            top = y! - 1;
         }
         
         if (y == Int(cellSize.height) - 1 ) {
             bottom = 0;
         } else {
-            bottom = y + 1;
+            bottom = y! + 1;
         }
     }
     
-    func addV(a:CGPoint) {
+    func addV(_ a:CGPoint) {
         velocity += a
     }
     
-    func update(friction:CGFloat) {
+    func update(_ friction:CGFloat) {
         render()
         velocity = velocity * friction
         

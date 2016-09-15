@@ -6,6 +6,8 @@
 //  Copyright (c) 2016 Brix. All rights reserved.
 //
 
+import Foundation
+import Cocoa
 import SpriteKit
 
 class VectorScene: SKScene {
@@ -37,7 +39,7 @@ class VectorScene: SKScene {
 
 extension VectorScene {
     func buildField() {
-        nodes = Array(count: gridSize, repeatedValue: Array(count: gridSize, repeatedValue: nil))
+        nodes = Array(repeating: Array(repeating: nil, count: gridSize), count: gridSize)
         
         grid = buildGrid()
         self.addChild(grid)
@@ -53,12 +55,12 @@ extension VectorScene {
     
     func buildGrid() -> GridNode {
         let grid = GridNode(size: gridSize, padding: padding)
-        grid.position = CGPoint(x:CGRectGetMidX(self.frame) - grid.size.width / 2, y:CGRectGetMidY(self.frame) - grid.size.height / 2 )
+        grid.position = CGPoint(x:self.frame.midX - grid.size.width / 2, y:self.frame.midY - grid.size.height / 2 )
         
         return grid
     }
     
-    func buildNode(origin:CGPoint, x:Int, y:Int) -> MoverNode {
+    func buildNode(_ origin:CGPoint, x:Int, y:Int) -> MoverNode {
         if useVectors {
             return LineMoverNode(index: NodeIndex(x: x, y: y), origin: origin, padding: padding)
         } else {            
@@ -70,29 +72,29 @@ extension VectorScene {
 
 extension VectorScene {
     
-    override func mouseDown(theEvent: NSEvent) {
-        touchPoint = theEvent.locationInNode(self)
+    override func mouseDown(with theEvent: NSEvent) {
+        touchPoint = theEvent.location(in: self)
 
     }
-    override func mouseDragged(theEvent: NSEvent) {
-        touchPoint = theEvent.locationInNode(self)
+    override func mouseDragged(with theEvent: NSEvent) {
+        touchPoint = theEvent.location(in: self)
 
     }
     
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         touchPoint = nil
     }
-    override func mouseExited(theEvent: NSEvent) {
+    override func mouseExited(with theEvent: NSEvent) {
         touchPoint = nil
     }
     
 }
 
 extension VectorScene {
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         /* Called before each frame is rendered */
         if let location = touchPoint {
-            fakeTouch(self.convertPoint(location, toNode: grid))
+            fakeTouch(self.convert(location, to: grid))
         } else {
             reset()
         }
@@ -110,32 +112,33 @@ extension VectorScene {
     }
     
     
-    func fakeTouch(point:CGPoint, velocity:CGFloat=1.0) {
+    func fakeTouch(_ point:CGPoint, velocity:CGFloat=1.0) {
         
         self.updateCursor(point)
         
-        let x = point.x.roundToValue(padding) / Int(padding)
-        let y = point.y.roundToValue(padding) / Int(padding)
+        var p = point
+        let x = p.x.roundToValue(padding) / Int(padding)
+        let y = p.y.roundToValue(padding) / Int(padding)
         
         guard x >= 0 && x < nodes.count else { return }
         guard y >= 0 && y < nodes[x].count else { return }
         
         if let node = nodes[x][y] {
-            node.input(nodes, magnitude: velocity, point:point)
+            _ = node.input(nodes, magnitude: velocity, point:point)
         }
     }
 }
 extension VectorScene {
     
     
-    func updateCursor(point:CGPoint) {
+    func updateCursor(_ point:CGPoint) {
         guard useCursor else { return }
-        if let cursor = grid.childNodeWithName("cursor") {
+        if let cursor = grid.childNode(withName: "cursor") {
             cursor.removeFromParent()
         }
         
         let p = SKShapeNode(circleOfRadius: 10)
-        p.fillColor = SKColor.redColor()
+        p.fillColor = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
         p.position = point
         p.name = "cursor"
         grid.addChild(p)

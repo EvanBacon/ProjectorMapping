@@ -10,15 +10,15 @@ import SpriteKit
 
 
 class GridNode:SKSpriteNode {
-    private var padding:CGFloat = 0
-    private var gridSize:Int = 0
+    fileprivate var padding:CGFloat = 0
+    fileprivate var gridSize:Int = 0
 
     override init(texture: SKTexture?, color: SKColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
     }
     
     convenience init(size:Int, padding:CGFloat) {
-        self.init(texture:nil, color: SKColor.clearColor(), size: CGSize(width: CGFloat(size - 1) * padding, height: CGFloat(size - 1) * padding))
+        self.init(texture:nil, color: SKColor.clear, size: CGSize(width: CGFloat(size - 1) * padding, height: CGFloat(size - 1) * padding))
         
         self.padding = padding
 
@@ -31,7 +31,7 @@ class GridNode:SKSpriteNode {
 }
 
 extension GridNode {
-    private func buildView() {
+    fileprivate func buildView() {
         self.anchorPoint = CGPoint()
         for i in 0..<gridSize {
             /// Build vertical lines
