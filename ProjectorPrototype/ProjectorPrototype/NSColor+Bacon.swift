@@ -221,6 +221,12 @@ extension NSColor {
         
     }
     
+    func color() -> NSColor {
+        return NSColor(hue: 1, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+        
+    }
+    
+    
     func randomDarkColor() -> NSColor {
         let hue = CGFloat( 1.0 );  //  Blue
         

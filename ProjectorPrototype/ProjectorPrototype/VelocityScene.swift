@@ -43,7 +43,7 @@ extension VelocityScene {
     
     
     func buildNode() -> VelocityFieldNode {
-        let grid = VelocityFieldNode(nodes: 250, size: size, gridSize: size.width * 0.1, radius: size.width * 0.33)
+        let grid = VelocityFieldNode(nodes: 250, size: size, gridSize: size.width * 0.07, radius: size.width * 0.33)
         grid.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         self.addChild(grid)

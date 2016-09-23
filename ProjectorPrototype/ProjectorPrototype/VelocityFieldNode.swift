@@ -18,8 +18,11 @@ class VelocityFieldNode:SKSpriteNode {
     var cellSize = CGSize()
     var friction:CGFloat = 0.99;
     
+    var gooNode:GooNode!
     
-      
+    var cropNode:SKCropNode!
+
+    
     convenience init(nodes:Int, size:CGSize, gridSize:CGFloat, radius:CGFloat) {
         self.init(texture: nil, color: SKColor.black, size: size)
         self.gridSize = gridSize;
@@ -40,13 +43,22 @@ class VelocityFieldNode:SKSpriteNode {
 extension VelocityFieldNode {
     
     func setup(_ nodeCount:Int, nodeRadius:CGFloat) {
+        
+        gooNode = GooNode()
+        let node = SKCropNode()
+        node.maskNode = SKSpriteNode(texture: nil, color:SKColor.black, size: self.size)
+        self.addChild(node)
+        node.addChild(gooNode)
+
+
+        
         let offset = CGPoint(x: -(frame.size.width / 2), y: -(frame.size.height / 2))
         for i in 0..<nodeCount {
             let node = DynamicNode(id: i, origin: CGPoint(x: size.width, y: size.height).random(), radius: nodeRadius)
             balls.append(node)
             
             node.offset = offset
-            self.addChild(node)
+            gooNode.addChild(node)
 
         }
         

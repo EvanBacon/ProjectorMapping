@@ -271,6 +271,7 @@ extension GameViewController {
     func mat(_ color:NSColor) -> SCNMaterial {
         let m = SCNMaterial()
         m.diffuse.contents = color
+        
         return m
         
     }

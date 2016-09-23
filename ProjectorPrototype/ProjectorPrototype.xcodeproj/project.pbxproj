@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C121DFD1D7F4B7A00AF086F /* Paint.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6C121DFC1D7F4B7A00AF086F /* Paint.sks */; };
+		6C1835081D9088C400A1E19A /* GooNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1835071D9088C400A1E19A /* GooNode.swift */; };
 		6C432EEF1D87389700D3C0E6 /* VelocityFieldNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C432EEA1D87389700D3C0E6 /* VelocityFieldNode.swift */; };
 		6C432EF01D87389700D3C0E6 /* ArrowNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C432EEB1D87389700D3C0E6 /* ArrowNode.swift */; };
 		6C432EF11D87389700D3C0E6 /* DynamicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C432EEC1D87389700D3C0E6 /* DynamicNode.swift */; };
@@ -112,6 +113,7 @@
 
 /* Begin PBXFileReference section */
 		6C121DFC1D7F4B7A00AF086F /* Paint.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Paint.sks; sourceTree = "<group>"; };
+		6C1835071D9088C400A1E19A /* GooNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooNode.swift; sourceTree = "<group>"; };
 		6C432EEA1D87389700D3C0E6 /* VelocityFieldNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VelocityFieldNode.swift; sourceTree = "<group>"; };
 		6C432EEB1D87389700D3C0E6 /* ArrowNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowNode.swift; sourceTree = "<group>"; };
 		6C432EEC1D87389700D3C0E6 /* DynamicNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicNode.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		6C432EE91D87388700D3C0E6 /* Velocity */ = {
 			isa = PBXGroup;
 			children = (
+				6C1835071D9088C400A1E19A /* GooNode.swift */,
 				6C432EF41D8738A400D3C0E6 /* VelocityScene.swift */,
 				6C432EEA1D87389700D3C0E6 /* VelocityFieldNode.swift */,
 				6C432EEB1D87389700D3C0E6 /* ArrowNode.swift */,
@@ -610,6 +613,7 @@
 				6C6BCA931D8875C400DDCABD /* Item.swift in Sources */,
 				6CBA2E091D82225A0090E06A /* CGPoint+Extensions.swift in Sources */,
 				6C6BCA911D8875C400DDCABD /* Item+AppKit.swift in Sources */,
+				6C1835081D9088C400A1E19A /* GooNode.swift in Sources */,
 				6CE573B81D774B0A0093D60F /* LeapObjectiveC.mm in Sources */,
 				6CBA2E0C1D82225A0090E06A /* LineMoverNode.swift in Sources */,
 				6CBA2E101D82225A0090E06A /* LineNode.swift in Sources */,

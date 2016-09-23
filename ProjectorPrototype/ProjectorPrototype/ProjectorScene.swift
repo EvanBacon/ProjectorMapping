@@ -10,15 +10,35 @@ import Foundation
 import Cocoa
 import SceneKit
 import  SpriteKit
+extension CGFloat {
+    var inchesToMillimeters:CGFloat {
+        return self * 25.4
+    }
+    var inchesToCentimeters:CGFloat {
+        return self * 2.54
+    }
+    
+    var millimetersToCentimeters:CGFloat {
+        return self / 10
+    }
+    var millimetersToInches:CGFloat {
+        return self / 25.4
+    }
+}
+
+func * (lhs:SCNVector3, rhs:SCNVector3) -> SCNVector3 {
+    return SCNVector3(x: lhs.x * rhs.x, y: lhs.y * rhs.y, z: lhs.z * rhs.z)
+}
 
 class ProjectorScene: SCNScene {
     var texture: SKScene!
     let res: CGFloat = 1024
     var mesh:SCNNode!
-    
+    var millimeters:SCNVector3 = SCNVector3()
     var generativeParticle: SKEmitterNode!
 
-    
+    //W, H, D - inches
+    var meshSize = SCNVector3(x: 6,y: 6,z: 6)
     override init() {
         super.init()
         
@@ -84,7 +104,7 @@ extension ProjectorScene {
         camera.position = getMoveVectorForAngle(angle, distance: Double(camera.position.z))
         camera.position.y = y
         
-        print("camera", camera.position, angle, camera.rotation)
+        print("camera", camera.position * meshSize,camera.position, angle, camera.rotation)
         let sceneView = setupGameView(scene: scene, camera: camera)
         
         return sceneView

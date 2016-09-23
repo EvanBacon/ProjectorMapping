@@ -25,7 +25,7 @@ class DynamicNode:SKSpriteNode {
     }
     
     convenience init(id:Int, origin:CGPoint, radius:CGFloat) {
-        self.init(texture: SKTexture(imageNamed: "circle"), color: NSColor().randomSolidHueColor(), size: CGSize(width: radius * 2, height: radius * 2))
+        self.init(texture: SKTexture(imageNamed: "circle"), color: NSColor().color(), size: CGSize(width: radius * 2, height: radius * 2))
         self.id = id
         self.colorBlendFactor = 1
         self.animFrame = CGFloat(id)
